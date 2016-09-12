@@ -1,0 +1,42 @@
+<div class="passcode-wrapper">
+  <div class="state" data-state="setup">
+    <h1>Set up a Passcode</h1>
+    <input type="tel" id="num-setup" class="passcode-field" placeholder="Tap to enter passcode" />
+    <p>To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
+    <p class="text-danger">Passcodes did not match. Please try again.</p>
+  </div>
+  <div class="state future" data-state="verify">
+    <h1>Verify your Passcode</h1>
+    <div class="verify-field-wrapper">
+      <input type="tel" id="num-verify" class="passcode-field" placeholder="Tap to re-enter passcode" />
+      <div class="back-setup"><span class="icon icon-nav-arrow-left"></span></div>
+    </div>
+    <p>To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
+  </div>
+  <div class="state future" data-state="touchID">
+    <h1>Complete</h1>
+    <p>Your passcode is successfully set up.</p>
+    <p>You can also use Touch ID to unlock your app in the future.</p>
+    <button class="buttonControl ui-button link-button-primary" id="continue-touchID">Continue</button>
+  </div>
+  <div class="state future" data-state="noTouchID">
+    <h1>Complete</h1>
+    <p>Your passcode is successfully set up.</p>
+    <button class="buttonControl ui-button link-button-primary" id="continue">Continue</button>
+  </div>
+  <div class="state" data-state="unlock">
+    <h1>Unlock your app</h1>
+    <input type="tel" id="num-unlock" class="passcode-field" placeholder="Tap to enter passcode" />
+    <p>Enter your passcode to unlock your app.</p>
+    <p><a href="#" class="buttonControl ui-button link-text forgot-passcode">Forgot your passcode?</a></p>
+    <p class="text-danger">Incorrect passcode. Please try again.</p>
+    <div class="use-touchid notShow">
+      <div class="touchid-icon"><span class="icon icon-touch-id"></span></div> Use Touch ID
+    </div>
+  </div>
+</div>
+
+<div class="text-center hidden">
+  <p><strong>Something went wrong.</strong></p>
+  <p>The Lock screen needs to be configured.</p>
+</div>

@@ -1,0 +1,141 @@
+
+.passcode-wrapper {
+	position: relative;
+	overflow: hidden;
+	transform: translate3d(0,0,0);
+}
+.passcode-wrapper .state {
+	position: absolute;
+	left: 0;
+	right: 0;
+	text-align: center;
+	opacity: 0;
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	pointer-events: none;
+}
+.passcode-wrapper .state.past {
+	transform: translate3d(-105%,0,0);
+	opacity: 0;
+	pointer-events: none;
+}
+.passcode-wrapper .state.present {
+	transform: translate3d(0,0,0);
+	opacity: 1;
+	pointer-events: all;
+}
+.passcode-wrapper .state.future {
+	transform: translate3d(105%,0,0);
+	opacity: 0;
+	pointer-events: none;
+}
+.passcode-wrapper .passcode-field {
+	width: 100%;
+	text-align: center;
+	margin: 50px 0 20px;
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+	border-radius: 0;
+	background-color: transparent;
+	padding: 10px 0;
+	font-size: 30px;
+	line-height: 48px;
+	letter-spacing: 30px;
+	-webkit-appearance: none;
+	-webkit-text-security: disc;
+	-moz-text-security: disc;
+	text-security: disc;
+	-webkit-transition: border-bottom 0.25s ease;
+	transition: border-bottom 0.25s ease;
+}
+.passcode-wrapper .passcode-field:focus {
+	outline: none;
+	border-bottom: 1px solid #1C90F3;
+}
+.passcode-wrapper .passcode-field:placeholder-shown {
+	letter-spacing: 0;
+}
+.passcode-wrapper .passcode-field::-webkit-input-placeholder {
+	letter-spacing: 0;
+	font-size: 20px;
+	opacity: 0.2;
+}
+.passcode-wrapper .passcode-field:-moz-placeholder {
+	letter-spacing: 0;
+	font-size: 20px;
+	opacity: 0.2;
+}
+.passcode-wrapper .passcode-field::-moz-placeholder {
+	letter-spacing: 0;
+	font-size: 20px;
+	opacity: 0.2;
+}
+.passcode-wrapper .passcode-field:-ms-input-placeholder {
+	letter-spacing: 0;
+	font-size: 20px;
+	opacity: 0.2;
+}
+.passcode-wrapper .passcode-field:focus::-webkit-input-placeholder {
+	color: transparent !important;
+}
+.passcode-wrapper .passcode-field:focus:-moz-placeholder {
+	color: transparent !important;
+}
+.passcode-wrapper .passcode-field:focus::-moz-placeholder {
+	color: transparent !important;
+}
+.passcode-wrapper .passcode-field:focus:-ms-input-placeholder {
+	color: transparent !important;
+}
+.passcode-wrapper .state .text-danger {
+	opacity: 0;
+}
+.passcode-wrapper .state.error .text-danger {
+	opacity: 1;
+}
+.link-text.forgot-passcode {
+	font-size: 0.8em;
+}
+div[data-state="noTouchID"] button,
+div[data-state="touchID"] button {
+	margin-top: 30px;
+}
+.verify-field-wrapper {
+	position: relative;
+	width: 100%;
+}
+.verify-field-wrapper .back-setup {
+	position: absolute;
+	top: 65px;
+	left: 0;
+	pointer-events: all;
+	width: 48px;
+	height: 48px;
+	font-size: 28px;
+	line-height: 48px;
+	text-align: center;
+	color: #333;
+}
+.use-touchid {
+	border: 1px solid #d2d2d2;
+	padding: 10px 12px;
+	line-height: 20px;
+	height: 42px;
+	border-radius: 22px;
+	display: inline-block;
+	margin: 10px 0 0;
+	opacity: 1;
+}
+.use-touchid.notShow {
+	opacity: 0;
+}
+.use-touchid .touchid-icon {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 18px;
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+	color: #e9376b;
+}

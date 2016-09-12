@@ -1,0 +1,39 @@
+{
+  "name": "Lock plugin",
+  "package": "com.fliplet.lock",
+  "version": "1.0.0",
+  "icon": "img/icon.png",
+  "tags": ["type:component", "category:security"],
+  "html_tag": "div",
+  "provider_only": false,
+  "providers": [
+    "com.fliplet.link"
+  ],
+  "interface": {
+    "dependencies": [
+      "fliplet-core",
+      "fliplet-studio-ui",
+      "jquery-ui",
+      "lodash",
+      "handlebars",
+      "bootstrap"
+    ],
+    "assets": [
+      "js/interface.js",
+      "css/interface.css"
+    ]
+  },
+  "build": {
+    "dependencies": [
+      "fliplet-core",
+      "fliplet-navigate",
+      "bootstrap-css"
+    ],
+    "assets": [
+      "vendor/sjcl.js",
+      "vendor/modernizr.js",
+      "js/build.js",
+      "css/build.css"
+    ]
+  }
+}
