@@ -20,7 +20,6 @@ var Lock_screen = (function() {
             _this.attach_event_listeners();
             _this.load_configuration(configuration);
         });
-
     };
 
     Lock_screen.prototype = {
@@ -251,15 +250,6 @@ var Lock_screen = (function() {
         load_configuration: function(configuration) {
             if (!configuration.has_reset) {
                 $('.forgot-passcode').addClass("hidden");
-            }
-            if (typeof window.flQueryVars !== 'undefined' &&
-                typeof window.flQueryVars.flSecurityReset !== "undefined" && window.flQueryVars.flSecurityReset === 'true') {
-
-
-                Fliplet.Security.Storage.reset(_this.pvName).then(function(data){
-                    _this.passcodePV = data;
-                    $('.state[data-state=setup]').find('input').focus();
-                });
             }
         }
     };
