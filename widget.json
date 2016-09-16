@@ -26,8 +26,8 @@
   "build": {
     "dependencies": [
       "fliplet-core",
-      "fliplet-navigate",
-      "bootstrap-css"
+      "bootstrap-css",
+      "fliplet-security"
     ],
     "assets": [
       "vendor/sjcl.js",

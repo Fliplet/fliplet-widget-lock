@@ -15,9 +15,12 @@ var Lock_screen = (function() {
         this.widgetId = Fliplet.Widget.getDefaultId();
         this.configuration = (configuration || {});
         this.passcode = '';
-        this.initialize_PV();
-        this.attach_event_listeners();
-        this.load_configuration(configuration);
+        Fliplet.Security.Storage.init().then(function(){
+            _this.initialize_PV();
+            _this.attach_event_listeners();
+            _this.load_configuration(configuration);
+        });
+
     };
 
     Lock_screen.prototype = {
@@ -101,7 +104,7 @@ var Lock_screen = (function() {
                 var str = control_input($(this));
 
                 if (str.length >= 4) {
-                    if (encrypt_passcode(str) === _this.passcodePV.data.hashedPassCode) {
+                    if (encrypt_passcode(str) === _this.passcodePV.hashedPassCode) {
                         //TODO GA Track event
                         //window.plugins.ga.trackEvent("lock_screen", "enter_success");
 
@@ -128,11 +131,12 @@ var Lock_screen = (function() {
                     // TODO GA Track event
                     //window.plugins.ga.trackEvent("lock_screen", "forgot_passcode");
 
-                    _this.passcodePV.resetDevicePV();
-                    //go to the user configured screen and add a Query var to let the application know that the app needs to be reset;
-                    redirect_to(reset_action_id);
-                    $('.form-control.input-lg').val('');
-                    return false;
+                    Fliplet.Security.Storage.reset(_this.pvName).then(function(data){
+                        //go to the user configured screen and add a Query var to let the application know that the app needs to be reset;
+                        redirect_to(reset_action_id);
+                        $('.form-control.input-lg').val('');
+                        return false;
+                    });
                 }
             }).trigger('change');
 
@@ -168,32 +172,33 @@ var Lock_screen = (function() {
         },
         initialize_PV: function() {
 
-            var pvName = 'passcode_' + _this.widgetId,
-                dataStructure = {
-                    hashedPassCode: false
-                };
+            _this.pvName = 'passcode_' + _this.widgetId;
+            var dataStructure = {
+                hashedPassCode: false
+            };
 
-            _this.passcodePV = new PV(pvName, dataStructure, function() {
-                if(_this.configuration.hasCustomization) {
-                    var event = new CustomEvent(
-                        "flLockOnLoadCustomization",
-                        {
-                            bubbles: true,
-                            cancelable: true
-                        }
-                    );
-                    document.dispatchEvent(event);
-                    return;
+            Fliplet.Security.Storage.create(_this.pvName, dataStructure).then(
+                function(data) {
+                    _this.passcodePV = data;
+                    if(_this.configuration.hasCustomization) {
+                        var event = new CustomEvent(
+                            "flLockOnLoadCustomization",
+                            {
+                                bubbles: true,
+                                cancelable: true
+                            }
+                        );
+                        document.dispatchEvent(event);
+                        return;
+                    }
+                    _this.initialize_lock_screen_ui();
                 }
-                _this.initialize_lock_screen_ui();
-            }, function() {
-                return false;
-            });
+            );
         },
         initialize_lock_screen_ui: function(){
             var that = _this;
 
-            if (_this.passcodePV.data.hashedPassCode) {
+            if (_this.passcodePV.hashedPassCode) {
                 if (_this.configuration.enable_touch_id && Fliplet.Env.get('platform') !== 'web') {
                     // TODO GA Track event
                     //window.plugins.ga.trackEvent("lock_screen", "touchid_admin_enabled");
@@ -240,8 +245,8 @@ var Lock_screen = (function() {
             // TODO GA Track event
             //window.plugins.ga.trackEvent("lock_screen", "setup_success");
 
-            _this.passcodePV.data.hashedPassCode = hashedPassCode;
-            _this.passcodePV.updateDevicePV();
+            _this.passcodePV.hashedPassCode = hashedPassCode;
+            Fliplet.Security.Storage.update();
         },
         load_configuration: function(configuration) {
             if (!configuration.has_reset) {
@@ -250,7 +255,9 @@ var Lock_screen = (function() {
             if (typeof window.flQueryVars !== 'undefined' &&
                 typeof window.flQueryVars.flSecurityReset !== "undefined" && window.flQueryVars.flSecurityReset === 'true') {
 
-                _this.passcodePV.resetDevicePV(function() {
+
+                Fliplet.Security.Storage.reset(_this.pvName).then(function(data){
+                    _this.passcodePV = data;
                     $('.state[data-state=setup]').find('input').focus();
                 });
             }
