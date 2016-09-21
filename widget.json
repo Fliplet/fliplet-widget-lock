@@ -26,7 +26,6 @@
   "build": {
     "dependencies": [
       "fliplet-core",
-      "fliplet-navigate",
       "bootstrap-css"
     ],
     "assets": [
