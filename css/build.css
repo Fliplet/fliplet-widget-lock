@@ -1,4 +1,37 @@
-
+@import url( 'https://file.myfontastic.com/ST3pu3LMDT9fYqfNLPTQAN/icons.css');
+/* Buttons */
+.btn-primary {
+	display: block;
+	clear: both;
+	width: 100%;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.33;
+	border: none;
+	border-radius: 6px;
+	text-align: center;
+	cursor: pointer;
+	color: #ffffff;
+	background-color: #337ab7;
+}
+.btn-primary:focus,
+.btn-primary:hover,
+.btn:active:focus {
+	outline: none;
+}
+@media (min-width:640px) {
+	.btn-primary {
+		clear: none;
+		display: inline-block;
+		width: auto;
+		max-width: 100%;
+	}
+}
+.btn-link,
+a {
+	color: #00abd2;
+	text-decoration: underline;
+}
 .passcode-wrapper {
 	position: relative;
 	overflow: hidden;
@@ -93,7 +126,7 @@
 .passcode-wrapper .state.error .text-danger {
 	opacity: 1;
 }
-.link-text.forgot-passcode {
+.btn-link.forgot-passcode {
 	font-size: 0.8em;
 }
 div[data-state="noTouchID"] button,
