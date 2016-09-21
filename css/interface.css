@@ -97,12 +97,6 @@ header p {
 header a {
     text-decoration: none;
 }
-.tab-content {
-    padding: 0;
-}
-.tab-pane-content {
-    overflow: hidden;
-}
 /* FORMS */
 label {
     font-weight: normal;
