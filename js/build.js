@@ -12,10 +12,10 @@ var Lock_screen = (function() {
 
     var Lock_screen = function(configuration) {
         if (Fliplet.Env.get('platform') === 'web') {
-            $('.passcode-wrapper').html('<div class="text-center"><p>The Lock screen currently works only on device.</p></div>');
+            $('.passcode-wrapper').html('<div class="text-center"><p>The Lock component currently only works on a device.</p></div>');
             return;
         }
-        
+
         _this = this;
         this.widgetId = Fliplet.Widget.getDefaultId();
         this.configuration = (configuration || {});
