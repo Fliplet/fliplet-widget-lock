@@ -312,7 +312,7 @@ if(Fliplet.Env.get('platform') === 'web') {
 }
 
 function initLockScreen(){
-    var data = Fliplet.Widget.getData() || {};
+    var data = Fliplet.Widget.getData($('.passcode-wrapper').data('id')) || {};
 
     data.hasCustomization = typeof lockScreenCustomization!== "undefined" ? lockScreenCustomization : false;
 
