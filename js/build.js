@@ -11,6 +11,11 @@ var Lock_screen = (function() {
     const go_to_action_id = 'action';
 
     var Lock_screen = function(configuration) {
+        if (Fliplet.Env.get('platform') === 'web') {
+            $('.passcode-wrapper').html('<div class="text-center"><p>The Lock component currently only works on a device.</p></div>');
+            return;
+        }
+
         _this = this;
         this.widgetId = Fliplet.Widget.getDefaultId();
         this.configuration = (configuration || {});
@@ -307,7 +312,7 @@ if(Fliplet.Env.get('platform') === 'web') {
 }
 
 function initLockScreen(){
-    var data = Fliplet.Widget.getData() || {};
+    var data = Fliplet.Widget.getData($('.passcode-wrapper').data('id')) || {};
 
     data.hasCustomization = typeof lockScreenCustomization!== "undefined" ? lockScreenCustomization : false;
 
