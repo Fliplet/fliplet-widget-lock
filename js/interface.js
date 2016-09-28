@@ -10,7 +10,7 @@ var Lock_screen = (function () {
     this.id = null;
     this.linkPromises = [];
     this.setupUI();
-    this.data = Fliplet.Widget.getData($('.passcode-wrapper').data('id')) || {};
+    this.data = Fliplet.Widget.getData() || {};
     this.widgetId = Fliplet.Widget.getDefaultId();
     this.createLinkProvider('#to_go_link_action', go_to_action_id);
     if(!_.isEmpty(this.data[reset_action_id])) {
