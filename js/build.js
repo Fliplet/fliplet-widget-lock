@@ -1,6 +1,9 @@
 $('.passcode-wrapper').each(function(){
     var $lock = $(this);
     var widgetId = $lock.data('id');
+    if (!widgetId) {
+        return;
+    }
     var data = Fliplet.Widget.getData(widgetId) || {};
 
 
