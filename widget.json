@@ -27,14 +27,13 @@
     "dependencies": [
       "fliplet-core",
       "bootstrap-css",
-      "fliplet-security",
-      "bootstrap-css"
+      "fliplet-security"
     ],
     "assets": [
+      "css/build.css",
       "vendor/sjcl.js",
       "vendor/modernizr.js",
-      "js/build.js",
-      "css/build.css"
+      "js/build.js"
     ]
   }
 }
