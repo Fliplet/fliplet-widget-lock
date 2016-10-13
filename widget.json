@@ -1,5 +1,5 @@
 {
-  "name": "Lock plugin",
+  "name": "Lock",
   "package": "com.fliplet.lock",
   "version": "1.0.0",
   "icon": "img/icon.png",
@@ -27,7 +27,8 @@
     "dependencies": [
       "fliplet-core",
       "bootstrap-css",
-      "fliplet-security"
+      "fliplet-security",
+      "bootstrap-css"
     ],
     "assets": [
       "vendor/sjcl.js",

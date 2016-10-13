@@ -1,58 +1,46 @@
-<div class="container" id="widget-form-container">
-  <div class="row row-content">
-    <!-- End of Nav Tabs -->
-    <!-- Tab Panes -->
-    <div class="tab-pane active" id="config-lock">
-      <div class="tab-content col-xs-9">
-        <div class="form-horizontal">
-          <div class="tab-pane-header">
-            <h3>Set up your Lock Screen</h3>
-            <p>Configure the following settings.</p>
-          </div>
-          <div id="error"></div>
-          <div class="tab-pane-content">
-            <div class="form-group">
-              <div class="col-sm-8 control-label">
-                <label for="to_go_link_action">Redirect to another screen after Passcode authentication</label>
-              </div>
-              <div class="col-sm-8">
-                <div id="to_go_link_action"></div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-5 control-label">Allow users to reset the Passcode</label>
-              <div class="col-sm-8">
-                <div class="radio">
-                  <label for="available_reset">
-                    <input type="radio" class="field" name="has_reset" id="available_reset" value="true" {{#if reset_action}}checked="checked"{{/if}}>
-                    <strong>Yes</strong> - App users can reset the Passcode and be taken to another screen for user verification
-                  </label>
-                  <div id="reset_link_action"></div>
-                </div>
-                <div class="radio">
-                  <label for="unavailable_reset">
-                    <input type="radio" class="field" name="has_reset" id="unavailable_reset" value="false" {{#unless reset_action}}checked="checked"{{/unless}}>
-                    <strong>No</strong> - App users will need to redownload the app if they cannot remember the Passcode
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-5 control-label">Allow the use of Touch ID?</label>
-              <div class="col-sm-7">
-                <div class="checkbox">
-                  <label for="enable_touch_id">
-                    <input type="checkbox" id="enable_touch_id" {{#if enable_touch_id}}checked{{/if}}>Use Touch ID to unlock app<p class="help-block">Only available on iPhone 5s or later, iPad Pro, iPad Air 2, or iPad mini 3 or later</p>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
+<div id="widget-form-container">
+  <form class="form-horizontal">
+    <header>
+      <p>Configure lock component</p>
+      <a id="help_tip" href="#">Need help?</a>
+    </header>
+
+    <div class="form-group">
+      <div class="col-sm-4 control-label">
+        <label for="to_go_link_action">Redirect to another screen after Passcode authentication</label>
+      </div>
+      <div class="col-sm-8">
+        <div id="to_go_link_action"></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Allow users to reset the Passcode</label>
+      <div class="col-sm-8">
+        <div class="radio">
+          <input type="radio" class="field" name="has_reset" id="available_reset" value="true" {{#if reset_action}}checked="checked"{{/if}}>
+          <label for="available_reset">
+              <span class="check"><i class="fa fa-circle" aria-hidden="true"></i></span> <strong>Yes</strong> - App users can reset the Passcode and be taken to another screen for user verification
+          </label>
+          <div id="reset_link_action"></div>
+        </div>
+        <div class="radio">
+          <input type="radio" class="field" name="has_reset" id="unavailable_reset" value="false" {{#unless reset_action}}checked="checked"{{/unless}}>
+          <label for="unavailable_reset">
+            <span class="check"><i class="fa fa-circle"></i></span> <strong>No</strong> - App users will need to redownload the app if they cannot remember the Passcode
+          </label>
         </div>
       </div>
     </div>
-  </div>
-
-
-  <!-- End of Bottom bar -->
+    <div class="form-group">
+      <label class="col-sm-4 control-label">Allow the use of Touch ID?</label>
+      <div class="col-sm-8">
+        <div class="checkbox">
+            <input type="checkbox" id="enable_touch_id" {{#if enable_touch_id}}checked{{/if}}>
+            <label for="enable_touch_id">
+              <span class="check"><i class="fa fa-check"></i></span> Use Touch ID to unlock app<p class="help-block">Only available on iPhone 5s or later, iPad Pro, iPad Air 2, or iPad mini 3 or later</p>
+            </label>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

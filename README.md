@@ -1,2 +1,2 @@
-# fliplet-widget-pin-code
-PinCode fliplet widget 
+# fliplet-widget-lock
+Lock fliplet widget 
