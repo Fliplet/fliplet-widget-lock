@@ -11,8 +11,6 @@
 	border-radius: 6px;
 	text-align: center;
 	cursor: pointer;
-	color: #ffffff;
-	background-color: #337ab7;
 }
 .btn-primary:focus,
 .btn-primary:hover,
