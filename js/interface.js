@@ -10,8 +10,8 @@ var Lock_screen = (function () {
     this.id = null;
     this.linkPromises = [];
     this.setupUI();
-    this.data = Fliplet.Widget.getData() || {};
     this.widgetId = Fliplet.Widget.getDefaultId();
+    this.data = Fliplet.Widget.getData(this.widgetId) || {};
     this.createLinkProvider('#to_go_link_action', go_to_action_id);
     if(!_.isEmpty(this.data[reset_action_id])) {
       _this.createLinkProvider('#reset_link_action', reset_action_id);
@@ -56,7 +56,7 @@ var Lock_screen = (function () {
       _this.data.has_reset = $("#available_reset").is(':checked') ? true: null;
 
       if(notifyComplete) {
-        Promise.all(_this.linkPromises).then(function () {
+        Fliplet.Widget.all(_this.linkPromises).then(function () {
           // when all providers have finished
           Fliplet.Widget.save(_this.data).then(function () {
             Fliplet.Widget.complete();
@@ -68,10 +68,6 @@ var Lock_screen = (function () {
           promise.forwardSaveRequest();
         });
       }
-
-      Fliplet.Widget.save(_this.data).then(function () {
-        Fliplet.Studio.emit('reload-widget-instance', _this.widgetId);
-      });
     },
     /**
      * attach all event listener that the plugin configuration needs
