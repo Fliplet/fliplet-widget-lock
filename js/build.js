@@ -93,8 +93,8 @@ $('.passcode-wrapper').each(function(){
                                 $(this).val('');
                             }
                         } else {
-                            // TODO GA Track event
-                            //window.plugins.ga.trackEvent("lock_screen", "setup_fail");
+                            // GA Track event
+                            Fliplet.Analytics.trackEvent("lock_screen", "setup_fail");
 
                             $lock.find('.state[data-state=verify]').removeClass('present').addClass('future');
                             _this.calculateElHeight($lock.find('.state[data-state=setup]'));
@@ -119,7 +119,7 @@ $('.passcode-wrapper').each(function(){
                             redirect_to(go_to_action_id);
                         } else {
                             // TODO GA Track event
-                            //window.plugins.ga.trackEvent("lock_screen", "enter_fail");
+                            Fliplet.Analytics.trackEvent("lock_screen", "enter_fail");
 
                             $lock.find('.state[data-state=unlock]').addClass('error');
                             $lock.find('.state[data-state=unlock]').find('input').focus();
@@ -136,8 +136,8 @@ $('.passcode-wrapper').each(function(){
 
                 $lock.find('.forgot-passcode').on('click', function() {
                     if (_this.configuration.has_reset) {
-                        // TODO GA Track event
-                        //window.plugins.ga.trackEvent("lock_screen", "forgot_passcode");
+                        // GA Track event
+                        Fliplet.Analytics.trackEvent("lock_screen", "forgot_passcode");
 
                         Fliplet.Security.Storage.reset(_this.pvName).then(function(data){
                             //go to the user configured screen and add a Query var to let the application know that the app needs to be reset;
@@ -149,8 +149,8 @@ $('.passcode-wrapper').each(function(){
                 }).trigger('change');
 
                 $lock.find('.back-setup').on('click', function() {
-                    // TODO GA Track event
-                    //window.plugins.ga.trackEvent("lock_screen", "setup_back");
+                    // GA Track event
+                    Fliplet.Analytics.trackEvent("lock_screen", "setup_back");
 
                     $lock.find('.state[data-state=verify]').removeClass('present').addClass('future');
                     _this.calculateElHeight($lock.find('.state[data-state=setup]'));
@@ -160,8 +160,8 @@ $('.passcode-wrapper').each(function(){
                 });
 
                 $lock.find('.use-touchid').on('click', function() {
-                    // TODO GA Track event
-                    //window.plugins.ga.trackEvent("lock_screen", "touchid_manual_activated");
+                    // GA Track event
+                    Fliplet.Analytics.trackEvent("lock_screen", "touchid_manual_activated");
                     _this.useTouchId();
                 });
 
@@ -207,14 +207,14 @@ $('.passcode-wrapper').each(function(){
 
                 if (_this.passcodePV.hashedPassCode) {
                     if (_this.configuration.enable_touch_id && Fliplet.Env.get('platform') !== 'web') {
-                        // TODO GA Track event
-                        //window.plugins.ga.trackEvent("lock_screen", "touchid_admin_enabled");
+                        // GA Track event
+                        Fliplet.Analytics.trackEvent("lock_screen", "touchid_admin_enabled");
 
                         if (window.plugins.touchid) {
                             window.plugins.touchid.isAvailable(
                                 function(msg) {
-                                    // TODO GA Track event
-                                    //window.plugins.ga.trackEvent("lock_screen", "touchid_available");
+                                    // GA Track event
+                                    Fliplet.Analytics.trackEvent("lock_screen", "touchid_available");
                                     $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
                                     that.useTouchId();
                                 },
@@ -236,20 +236,20 @@ $('.passcode-wrapper').each(function(){
                     'Use your fingerprint to unlock your app',
                     'Enter Passcode',
                     function(msg) {
-                        //TODO enable GA Track event
-                        //window.plugins.ga.trackEvent("lock_screen", "touchid_verified");
+                        // GA Track event
+                        Fliplet.Analytics.trackEvent("lock_screen", "touchid_verified");
 
                         redirect_to(go_to_action_id);
                     },
                     function(msg) {
-                        // TODO enable GA Track event
-                        //window.plugins.ga.trackEvent("lock_screen", "touchid_cancelled");
+                        // GA Track event
+                        Fliplet.Analytics.trackEvent("lock_screen", "touchid_cancelled");
                     }
                 );
             },
             savePasscodeOnPV: function(hashedPassCode) {
-                // TODO GA Track event
-                //window.plugins.ga.trackEvent("lock_screen", "setup_success");
+                // GA Track event
+                Fliplet.Analytics.trackEvent("lock_screen", "setup_success");
 
                 _this.passcodePV.hashedPassCode = hashedPassCode;
                 Fliplet.Security.Storage.update();
