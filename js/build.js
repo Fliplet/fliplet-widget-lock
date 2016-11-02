@@ -113,8 +113,8 @@ $('.passcode-wrapper').each(function(){
 
                     if (str.length >= 4) {
                         if (encrypt_passcode(str) === _this.passcodePV.hashedPassCode) {
-                            //TODO GA Track event
-                            //window.plugins.ga.trackEvent("lock_screen", "enter_success");
+                            // GA Track event
+                            Fliplet.Analytics.trackEvent("lock_screen", "enter_success");
 
                             redirect_to(go_to_action_id);
                         } else {
