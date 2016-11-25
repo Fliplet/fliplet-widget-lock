@@ -6,35 +6,107 @@
 	width: 100%;
 	padding: 10px 16px;
 	font-size: 18px;
+	line-height: 24px;
+	border: none;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 25px;
+	background-color: #337ab7;
+	border: 2px solid #337ab7;
+}
+
+.btn-secondary {
+	display: block;
+	clear: both;
+	width: 100%;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 24px;
+	border: none;
+	border-radius: 6px;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 25px;
+	background-color: transparent;
+	border: 2px solid #337ab7;
+	color: #337ab7;
+}
+
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-secondary:focus,
+.btn-secondary:hover,
+.btn:active:focus {
+	outline: none;
+}
+
+.btn-primary:active:focus,
+.btn-primary:active:hover {
+	border: 2px solid #286090;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+	border: 2px solid #286090;
+}
+
+.btn-secondary:active:focus,
+.btn-secondary:active:hover {
+	background-color: #337ab7;
+	color: #FFFFFF;
+}
+
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:hover {
+	color: #337ab7;
+}
+
+.btn-danger {
+	display: block;
+	clear: both;
+	width: 100%;
+	padding: 10px 16px;
+	font-size: 18px;
 	line-height: 1.33;
 	border: none;
 	border-radius: 6px;
 	text-align: center;
 	cursor: pointer;
 }
-.btn-primary:focus,
-.btn-primary:hover,
-.btn:active:focus {
+
+.btn-danger:active,
+.btn-danger:active:focus,
+.btn-danger:active:hover,
+.btn-danger:focus,
+.btn-danger:hover {
+	color: #FFF;
+	background-color: #c9302c;
+	border-color: #c9302c;
 	outline: none;
 }
 @media (min-width:640px) {
-	.btn-primary {
+	.btn-primary,
+	.btn-secondary {
 		clear: none;
 		display: inline-block;
 		width: auto;
 		max-width: 100%;
 	}
 }
+
 .btn-link,
 a {
-	color: #00abd2;
 	text-decoration: underline;
 }
+
 .passcode-wrapper {
 	position: relative;
 	overflow: hidden;
 	transform: translate3d(0,0,0);
 }
+
 .passcode-wrapper .state {
 	position: absolute;
 	left: 0;
@@ -45,21 +117,25 @@ a {
 	transition: all 0.5s ease;
 	pointer-events: none;
 }
+
 .passcode-wrapper .state.past {
 	transform: translate3d(-105%,0,0);
 	opacity: 0;
 	pointer-events: none;
 }
+
 .passcode-wrapper .state.present {
 	transform: translate3d(0,0,0);
 	opacity: 1;
 	pointer-events: all;
 }
+
 .passcode-wrapper .state.future {
 	transform: translate3d(105%,0,0);
 	opacity: 0;
 	pointer-events: none;
 }
+
 .passcode-wrapper .passcode-field {
 	width: 100%;
 	text-align: center;
@@ -79,62 +155,78 @@ a {
 	-webkit-transition: border-bottom 0.25s ease;
 	transition: border-bottom 0.25s ease;
 }
+
 .passcode-wrapper .passcode-field:focus {
 	outline: none;
 	border-bottom: 1px solid #1C90F3;
 }
+
 .passcode-wrapper .passcode-field:placeholder-shown {
 	letter-spacing: 0;
 }
+
 .passcode-wrapper .passcode-field::-webkit-input-placeholder {
 	letter-spacing: 0;
 	font-size: 20px;
 	opacity: 0.2;
 }
+
 .passcode-wrapper .passcode-field:-moz-placeholder {
 	letter-spacing: 0;
 	font-size: 20px;
 	opacity: 0.2;
 }
+
 .passcode-wrapper .passcode-field::-moz-placeholder {
 	letter-spacing: 0;
 	font-size: 20px;
 	opacity: 0.2;
 }
+
 .passcode-wrapper .passcode-field:-ms-input-placeholder {
 	letter-spacing: 0;
 	font-size: 20px;
 	opacity: 0.2;
 }
+
 .passcode-wrapper .passcode-field:focus::-webkit-input-placeholder {
 	color: transparent !important;
 }
+
 .passcode-wrapper .passcode-field:focus:-moz-placeholder {
 	color: transparent !important;
 }
+
 .passcode-wrapper .passcode-field:focus::-moz-placeholder {
 	color: transparent !important;
 }
+
 .passcode-wrapper .passcode-field:focus:-ms-input-placeholder {
 	color: transparent !important;
 }
+
 .passcode-wrapper .state .text-danger {
 	opacity: 0;
 }
+
 .passcode-wrapper .state.error .text-danger {
 	opacity: 1;
 }
+
 .btn-link.forgot-passcode {
 	font-size: 0.8em;
 }
+
 div[data-state="noTouchID"] button,
 div[data-state="touchID"] button {
 	margin-top: 30px;
 }
+
 .verify-field-wrapper {
 	position: relative;
 	width: 100%;
 }
+
 .verify-field-wrapper .back-setup {
 	position: absolute;
 	top: 65px;
@@ -147,6 +239,7 @@ div[data-state="touchID"] button {
 	text-align: center;
 	color: #333;
 }
+
 .use-touchid {
 	border: 1px solid #d2d2d2;
 	padding: 10px 12px;
@@ -157,9 +250,11 @@ div[data-state="touchID"] button {
 	margin: 10px 0 0;
 	opacity: 1;
 }
+
 .use-touchid.notShow {
 	opacity: 0;
 }
+
 .use-touchid .touchid-icon {
 	width: 20px;
 	height: 20px;

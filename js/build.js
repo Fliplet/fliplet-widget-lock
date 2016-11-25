@@ -38,7 +38,7 @@ $('.passcode-wrapper').each(function(){
 
                 document.addEventListener('flLockCustomizationFinish', _this.initialize_lock_screen_ui);
 
-                $lock.find('#num-setup').on('change keyup paste input', function() {
+                $lock.find('.num-setup').on('change keyup paste input', function() {
 
                     var str = control_input($(this));
 
@@ -57,7 +57,7 @@ $('.passcode-wrapper').each(function(){
                     }
                 });
 
-                $lock.find('#num-verify').on('change keyup paste input', function() {
+                $lock.find('.num-verify').on('change keyup paste input', function() {
 
                     var str = control_input($(this));
 
@@ -107,7 +107,7 @@ $('.passcode-wrapper').each(function(){
 
                 });
 
-                $lock.find('#num-unlock').on('change keyup paste input', function() {
+                $lock.find('.num-unlock').on('change keyup paste input', function() {
 
                     var str = control_input($(this));
 
@@ -129,7 +129,7 @@ $('.passcode-wrapper').each(function(){
                     }
                 });
 
-                $lock.find('#continue-touchID, #continue').on('click', function() {
+                $lock.find('.continue-touchID, .continue').on('click', function() {
                     redirect_to(go_to_action_id);
                     return false;
                 });
@@ -156,7 +156,7 @@ $('.passcode-wrapper').each(function(){
                     _this.calculateElHeight($lock.find('.state[data-state=setup]'));
                     $lock.find('.state[data-state=setup]').removeClass('past').addClass('present');
                     _this.focusOnElement($lock.find('.state[data-state=setup]'));
-                    $lock.find('.state[data-state=verify]').find('#num-verify').val('');
+                    $lock.find('.state[data-state=verify]').find('.num-verify').val('');
                 });
 
                 $lock.find('.use-touchid').on('click', function() {
@@ -328,5 +328,3 @@ $('.passcode-wrapper').each(function(){
         new Lock_screen(data);
     }
 });
-
-
