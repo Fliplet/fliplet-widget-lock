@@ -1,6 +1,7 @@
 $('.passcode-wrapper').each(function(){
     var $lock = $(this);
     var widgetId = $lock.data('id');
+    var widgetUuid = $lock.data('uuid');
     if (!widgetId) {
         return;
     }
@@ -23,6 +24,7 @@ $('.passcode-wrapper').each(function(){
 
             _this = this;
             this.widgetId = widgetId;
+            this.widgetUuid = widgetUuid;
             this.configuration = (configuration || {});
             this.passcode = '';
             Fliplet.Security.Storage.init().then(function(){
@@ -179,7 +181,7 @@ $('.passcode-wrapper').each(function(){
             },
             initialize_PV: function() {
 
-                _this.pvName = 'passcode_' + _this.widgetId;
+                _this.pvName = 'passcode_' + _this.widgetUuid;
                 var dataStructure = {
                     hashedPassCode: false
                 };
