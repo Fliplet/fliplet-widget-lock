@@ -12,6 +12,10 @@
 	border-radius: 6px;
 }
 
+h1 {
+	border-bottom: 1px solid red
+}
+
 .btn-secondary {
 	display: block;
 	clear: both;
