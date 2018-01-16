@@ -317,7 +317,7 @@ $('.passcode-wrapper').each(function(){
         initLockScreen();
         $('.passcode-wrapper').parent().on("fliplet_page_reloaded", initLockScreen);
     } else {
-        Fliplet.then(function() {
+        Fliplet().then(function() {
           initLockScreen();
         });
     }
