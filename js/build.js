@@ -316,11 +316,12 @@ $('.passcode-wrapper').each(function(){
     })();
 
     if(Fliplet.Env.get('platform') === 'web') {
-
         initLockScreen();
         $('.passcode-wrapper').parent().on("fliplet_page_reloaded", initLockScreen);
     } else {
-        document.addEventListener("deviceready", initLockScreen);
+        Fliplet().then(function() {
+          initLockScreen();
+        });
     }
 
     function initLockScreen(){
