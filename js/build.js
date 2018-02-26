@@ -96,7 +96,10 @@ $('.passcode-wrapper').each(function(){
                             }
                         } else {
                             // GA Track event
-                            Fliplet.Analytics.trackEvent("lock_screen", "setup_fail");
+                            Fliplet.Analytics.trackEvent({
+                              category: 'lock_screen',
+                              action: 'setup_fail'
+                            });
 
                             $lock.find('.state[data-state=verify]').removeClass('present').addClass('future');
                             _this.calculateElHeight($lock.find('.state[data-state=setup]'));
@@ -116,12 +119,18 @@ $('.passcode-wrapper').each(function(){
                     if (str.length >= 4) {
                         if (encrypt_passcode(str) === _this.passcodePV.hashedPassCode) {
                             // GA Track event
-                            Fliplet.Analytics.trackEvent("lock_screen", "enter_success");
+                            Fliplet.Analytics.trackEvent({
+                              category: 'lock_screen',
+                              action: 'enter_success'
+                            });
 
                             redirect_to(go_to_action_id);
                         } else {
                             // TODO GA Track event
-                            Fliplet.Analytics.trackEvent("lock_screen", "enter_fail");
+                            Fliplet.Analytics.trackEvent({
+                              category: 'lock_screen',
+                              action: 'enter_fail'
+                            });
 
                             $lock.find('.state[data-state=unlock]').addClass('error');
                             $lock.find('.state[data-state=unlock]').find('input').focus();
@@ -139,7 +148,10 @@ $('.passcode-wrapper').each(function(){
                 $lock.find('.forgot-passcode').on('click', function() {
                     if (_this.configuration.has_reset) {
                         // GA Track event
-                        Fliplet.Analytics.trackEvent("lock_screen", "forgot_passcode");
+                        Fliplet.Analytics.trackEvent({
+                          category: 'lock_screen',
+                          action: 'forgot_passcode'
+                        });
 
                         Fliplet.Security.Storage.reset(_this.pvName).then(function(data){
                             //go to the user configured screen and add a Query var to let the application know that the app needs to be reset;
@@ -152,7 +164,10 @@ $('.passcode-wrapper').each(function(){
 
                 $lock.find('.back-setup').on('click', function() {
                     // GA Track event
-                    Fliplet.Analytics.trackEvent("lock_screen", "setup_back");
+                    Fliplet.Analytics.trackEvent({
+                      category: 'lock_screen',
+                      action: 'setup_back'
+                    });
 
                     $lock.find('.state[data-state=verify]').removeClass('present').addClass('future');
                     _this.calculateElHeight($lock.find('.state[data-state=setup]'));
@@ -163,7 +178,10 @@ $('.passcode-wrapper').each(function(){
 
                 $lock.find('.use-touchid').on('click', function() {
                     // GA Track event
-                    Fliplet.Analytics.trackEvent("lock_screen", "touchid_manual_activated");
+                    Fliplet.Analytics.trackEvent({
+                      category: 'lock_screen',
+                      action: 'touchid_manual_activated'
+                    });
                     _this.useTouchId();
                 });
 
@@ -210,13 +228,19 @@ $('.passcode-wrapper').each(function(){
                 if (_this.passcodePV.hashedPassCode) {
                     if (_this.configuration.enable_touch_id && Fliplet.Env.get('platform') !== 'web') {
                         // GA Track event
-                        Fliplet.Analytics.trackEvent("lock_screen", "touchid_admin_enabled");
+                        Fliplet.Analytics.trackEvent({
+                          category: 'lock_screen',
+                          action: 'touchid_admin_enabled'
+                        });
 
                         if (window.plugins.touchid) {
                             window.plugins.touchid.isAvailable(
                                 function(msg) {
                                     // GA Track event
-                                    Fliplet.Analytics.trackEvent("lock_screen", "touchid_available");
+                                    Fliplet.Analytics.trackEvent({
+                                      category: 'lock_screen',
+                                      action: 'touchid_available'
+                                    });
                                     $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
                                     that.useTouchId();
                                 },
@@ -239,19 +263,28 @@ $('.passcode-wrapper').each(function(){
                     'Enter Passcode',
                     function(msg) {
                         // GA Track event
-                        Fliplet.Analytics.trackEvent("lock_screen", "touchid_verified");
+                        Fliplet.Analytics.trackEvent({
+                          category: 'lock_screen',
+                          action: 'touchid_verified'
+                        });
 
                         redirect_to(go_to_action_id);
                     },
                     function(msg) {
                         // GA Track event
-                        Fliplet.Analytics.trackEvent("lock_screen", "touchid_cancelled");
+                        Fliplet.Analytics.trackEvent({
+                          category: 'lock_screen',
+                          action: 'touchid_cancelled'
+                        });
                     }
                 );
             },
             savePasscodeOnPV: function(hashedPassCode) {
                 // GA Track event
-                Fliplet.Analytics.trackEvent("lock_screen", "setup_success");
+                Fliplet.Analytics.trackEvent({
+                  category: 'lock_screen',
+                  action: 'setup_success'
+                });
 
                 _this.passcodePV.hashedPassCode = hashedPassCode;
                 Fliplet.Security.Storage.update();
