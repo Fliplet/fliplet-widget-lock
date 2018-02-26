@@ -35,5 +35,8 @@
       "vendor/modernizr.js",
       "js/build.js"
     ]
-  }
+  },
+  "references": [
+    "action.page:page"
+  ]
 }

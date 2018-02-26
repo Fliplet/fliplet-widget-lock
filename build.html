@@ -1,14 +1,14 @@
-<div class="passcode-wrapper" data-id="{{id}}">
+<div class="passcode-wrapper" data-id="{{id}}" data-uuid="{{uuid}}">
   <div class="state" data-state="setup">
     <h1>Set up a Passcode</h1>
-    <input type="tel" id="num-setup" class="passcode-field" placeholder="Tap to enter passcode" />
+    <input type="tel" class="passcode-field num-setup" placeholder="Tap to enter passcode" />
     <p>To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
     <p class="text-danger">Passcodes did not match. Please try again.</p>
   </div>
   <div class="state future" data-state="verify">
     <h1>Verify your Passcode</h1>
     <div class="verify-field-wrapper">
-      <input type="tel" id="num-verify" class="passcode-field" placeholder="Tap to re-enter passcode" />
+      <input type="tel" class="passcode-field num-verify" placeholder="Tap to re-enter passcode" />
       <div class="back-setup"><span class="fa fa-chevron-left"></span></div>
     </div>
     <p>To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
@@ -17,16 +17,16 @@
     <h1>Complete</h1>
     <p>Your passcode is successfully set up.</p>
     <p>You can also use Touch ID to unlock your app in the future.</p>
-    <button class="btn btn-primary" id="continue-touchID">Continue</button>
+    <button class="btn btn-primary continue-touchID">Continue</button>
   </div>
   <div class="state future" data-state="noTouchID">
     <h1>Complete</h1>
     <p>Your passcode is successfully set up.</p>
-    <button class="btn btn-primary" id="continue">Continue</button>
+    <button class="btn btn-primary continue">Continue</button>
   </div>
   <div class="state" data-state="unlock">
     <h1>Unlock your app</h1>
-    <input type="tel" id="num-unlock" class="passcode-field" placeholder="Tap to enter passcode" />
+    <input type="tel" class="passcode-field num-unlock" placeholder="Tap to enter passcode" />
     <p>Enter your passcode to unlock your app.</p>
     <p><a href="#" class="btn btn-link forgot-passcode">Forgot your passcode?</a></p>
     <p class="text-danger">Incorrect passcode. Please try again.</p>
@@ -40,5 +40,3 @@
     <p>The Lock screen needs to be configured.</p>
   </div>
 </div>
-
-

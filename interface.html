@@ -16,14 +16,14 @@
     <div class="form-group">
       <label class="col-sm-4 control-label">Allow users to reset the Passcode</label>
       <div class="col-sm-8">
-        <div class="radio">
+        <div class="radio radio-icon">
           <input type="radio" class="field" name="has_reset" id="available_reset" value="true" {{#if reset_action}}checked="checked"{{/if}}>
           <label for="available_reset">
               <span class="check"><i class="fa fa-circle" aria-hidden="true"></i></span> <strong>Yes</strong> - App users can reset the Passcode and be taken to another screen for user verification
           </label>
           <div id="reset_link_action"></div>
         </div>
-        <div class="radio">
+        <div class="radio radio-icon">
           <input type="radio" class="field" name="has_reset" id="unavailable_reset" value="false" {{#unless reset_action}}checked="checked"{{/unless}}>
           <label for="unavailable_reset">
             <span class="check"><i class="fa fa-circle"></i></span> <strong>No</strong> - App users will need to redownload the app if they cannot remember the Passcode
@@ -34,7 +34,7 @@
     <div class="form-group">
       <label class="col-sm-4 control-label">Allow the use of Touch ID?</label>
       <div class="col-sm-8">
-        <div class="checkbox">
+        <div class="checkbox checkbox-icon">
             <input type="checkbox" id="enable_touch_id" {{#if enable_touch_id}}checked{{/if}}>
             <label for="enable_touch_id">
               <span class="check"><i class="fa fa-check"></i></span> Use Touch ID to unlock app<p class="help-block">Only available on iPhone 5s or later, iPad Pro, iPad Air 2, or iPad mini 3 or later</p>
