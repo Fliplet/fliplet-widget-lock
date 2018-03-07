@@ -32,7 +32,6 @@
     "assets": [
       "css/build.css",
       "vendor/sjcl.js",
-      "vendor/modernizr.js",
       "js/build.js"
     ]
   },
