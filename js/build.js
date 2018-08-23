@@ -98,7 +98,8 @@ $('.passcode-wrapper').each(function(){
                             // GA Track event
                             Fliplet.Analytics.trackEvent({
                               category: 'lock_screen',
-                              action: 'setup_fail'
+                              action: 'setup_fail',
+                              nonInteraction: true
                             });
 
                             $lock.find('.state[data-state=verify]').removeClass('present').addClass('future');
@@ -166,7 +167,8 @@ $('.passcode-wrapper').each(function(){
                     // GA Track event
                     Fliplet.Analytics.trackEvent({
                       category: 'lock_screen',
-                      action: 'setup_back'
+                      action: 'setup_back',
+                      nonInteraction: true
                     });
 
                     $lock.find('.state[data-state=verify]').removeClass('present').addClass('future');
@@ -230,7 +232,8 @@ $('.passcode-wrapper').each(function(){
                         // GA Track event
                         Fliplet.Analytics.trackEvent({
                           category: 'lock_screen',
-                          action: 'touchid_admin_enabled'
+                          action: 'touchid_admin_enabled',
+                          nonInteraction: true
                         });
 
                         if (window.plugins.touchid) {
@@ -239,7 +242,8 @@ $('.passcode-wrapper').each(function(){
                                     // GA Track event
                                     Fliplet.Analytics.trackEvent({
                                       category: 'lock_screen',
-                                      action: 'touchid_available'
+                                      action: 'touchid_available',
+                                      nonInteraction: true
                                     });
                                     $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
                                     that.useTouchId();
@@ -274,7 +278,8 @@ $('.passcode-wrapper').each(function(){
                         // GA Track event
                         Fliplet.Analytics.trackEvent({
                           category: 'lock_screen',
-                          action: 'touchid_cancelled'
+                          action: 'touchid_cancelled',
+                          nonInteraction: true
                         });
                     }
                 );
