@@ -89,10 +89,6 @@ var Lock_screen = (function () {
           _.remove(_this.linkPromises,{id:reset_action_id});
         }
       });
-
-      $('#help_tip').on('click', function() {
-        alert("During beta, please use live chat and let us know what you need help with.");
-      });
     }
   };
 
