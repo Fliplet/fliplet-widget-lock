@@ -27,6 +27,11 @@ var Lock_screen = (function () {
 
     },
     createLinkProvider: function(selector, id){
+      var page = Fliplet.Widget.getPage();
+      var omitPages = page ? [page.id] : [];
+
+      this.data[id] = this.data[id] || {};
+      this.data[id].omitPages = omitPages;
       var linkActionProvider = Fliplet.Widget.open('com.fliplet.link', {
         // If provided, the iframe will be appended here,
         // otherwise will be displayed as a full-size iframe overlay
