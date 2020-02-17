@@ -1,11 +1,10 @@
-$('.passcode-wrapper').each(function(){
+Fliplet.Widget.instance('passcode-wrapper', function(data){
     var $lock = $(this);
-    var widgetId = $lock.data('id');
-    var widgetUuid = $lock.data('uuid');
+    var widgetId = data.id;
+    var widgetUuid = data.uuid;
     if (!widgetId) {
         return;
     }
-    var data = Fliplet.Widget.getData(widgetId) || {};
 
 
     $.fn.state = function(newState) {

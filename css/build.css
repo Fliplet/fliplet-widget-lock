@@ -163,3 +163,8 @@ div[data-state="touchID"] button {
 	vertical-align: top;
 	color: #e9376b;
 }
+
+/* Fix component view when it is placed in the container */
+[data-widget-package="com.fliplet.lock"] {
+	width: 100%;
+}
