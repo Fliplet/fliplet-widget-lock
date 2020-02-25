@@ -26,16 +26,16 @@ $('.passcode-wrapper').each(function() {
       this.configuration = (configuration || {});
       this.passcode = '';
       Fliplet.Security.Storage.init().then(function() {
-        _this.initialize_PV();
-        _this.attach_event_listeners();
-        _this.load_configuration(configuration);
+        _this.initializePV();
+        _this.attachEventListeners();
+        _this.loadConfiguration(configuration);
       });
     };
 
     lockScreen.prototype = {
       constructor: lockScreen,
-      attach_event_listeners: function() {
-        document.addEventListener('flLockCustomizationFinish', _this.initialize_lockScreen_ui);
+      attachEventListeners: function() {
+        document.addEventListener('flLockCustomizationFinish', _this.initializeLockScreenUI);
 
         $lock.find('.num-setup').on('change keyup paste input', function() {
           var str = controlInput($(this));
@@ -61,7 +61,7 @@ $('.passcode-wrapper').each(function() {
           if (str.length >= 4) {
             if (str === _this.passcode) {
               _this.savePasscodeOnPV(encryptPasscode(_this.passcode));
-              if (Fliplet.Env.get('platform') !== 'web' && _this.configuration.enable_touch_id) {
+              if (Fliplet.Env.get('platform') !== 'web' && _this.configuration.enableTouchId) {
                 if (window.plugins.touchid) {
                   window.plugins.touchid.isAvailable(
                     function() {
@@ -92,7 +92,7 @@ $('.passcode-wrapper').each(function() {
             } else {
               // GA Track event
               Fliplet.Analytics.trackEvent({
-                category: 'lockScreen',
+                category: 'lock_screen',
                 action: 'setup_fail',
                 nonInteraction: true
               });
@@ -114,7 +114,7 @@ $('.passcode-wrapper').each(function() {
             if (encryptPasscode(str) === _this.passcodePV.hashedPassCode) {
               // GA Track event
               Fliplet.Analytics.trackEvent({
-                category: 'lockScreen',
+                category: 'lock_screen',
                 action: 'enter_success'
               });
 
@@ -122,7 +122,7 @@ $('.passcode-wrapper').each(function() {
             } else {
               // TODO GA Track event
               Fliplet.Analytics.trackEvent({
-                category: 'lockScreen',
+                category: 'lock_screen',
                 action: 'enter_fail'
               });
 
@@ -140,10 +140,10 @@ $('.passcode-wrapper').each(function() {
         });
 
         $lock.find('.forgot-passcode').on('click', function() {
-          if (_this.configuration.has_reset) {
+          if (_this.configuration.hasReset) {
             // GA Track event
             Fliplet.Analytics.trackEvent({
-              category: 'lockScreen',
+              category: 'lock_screen',
               action: 'forgot_passcode'
             });
 
@@ -159,7 +159,7 @@ $('.passcode-wrapper').each(function() {
         $lock.find('.back-setup').on('click', function() {
           // GA Track event
           Fliplet.Analytics.trackEvent({
-            category: 'lockScreen',
+            category: 'lock_screen',
             action: 'setup_back',
             nonInteraction: true
           });
@@ -174,7 +174,7 @@ $('.passcode-wrapper').each(function() {
         $lock.find('.use-touchid').on('click', function() {
           // GA Track event
           Fliplet.Analytics.trackEvent({
-            category: 'lockScreen',
+            category: 'lock_screen',
             action: 'touchid_manual_activated'
           });
           _this.useTouchId();
@@ -191,7 +191,7 @@ $('.passcode-wrapper').each(function() {
           }, 500);
         }
       },
-      initialize_PV: function() {
+      initializePV: function() {
         _this.pvName = 'passcode_' + _this.widgetUuid;
         var dataStructure = {
           hashedPassCode: false
@@ -211,18 +211,18 @@ $('.passcode-wrapper').each(function() {
               document.dispatchEvent(event);
               return;
             }
-            _this.initialize_lockScreen_ui();
+            _this.initializeLockScreenUI();
           }
         );
       },
-      initialize_lockScreen_ui: function() {
+      initializeLockScreenUI: function() {
         var that = _this;
 
         if (_this.passcodePV.hashedPassCode) {
-          if (_this.configuration.enable_touch_id && Fliplet.Env.get('platform') !== 'web') {
+          if (_this.configuration.enableTouchId && Fliplet.Env.get('platform') !== 'web') {
             // GA Track event
             Fliplet.Analytics.trackEvent({
-              category: 'lockScreen',
+              category: 'lock_screen',
               action: 'touchid_admin_enabled',
               nonInteraction: true
             });
@@ -232,7 +232,7 @@ $('.passcode-wrapper').each(function() {
                 function() {
                   // GA Track event
                   Fliplet.Analytics.trackEvent({
-                    category: 'lockScreen',
+                    category: 'lock_screen',
                     action: 'touchid_available',
                     nonInteraction: true
                   });
@@ -259,7 +259,7 @@ $('.passcode-wrapper').each(function() {
           function() {
             // GA Track event
             Fliplet.Analytics.trackEvent({
-              category: 'lockScreen',
+              category: 'lock_screen',
               action: 'touchid_verified'
             });
 
@@ -268,7 +268,7 @@ $('.passcode-wrapper').each(function() {
           function() {
             // GA Track event
             Fliplet.Analytics.trackEvent({
-              category: 'lockScreen',
+              category: 'lock_screen',
               action: 'touchid_cancelled',
               nonInteraction: true
             });
@@ -278,15 +278,15 @@ $('.passcode-wrapper').each(function() {
       savePasscodeOnPV: function(hashedPassCode) {
         // GA Track event
         Fliplet.Analytics.trackEvent({
-          category: 'lockScreen',
+          category: 'lock_screen',
           action: 'setup_success'
         });
 
         _this.passcodePV.hashedPassCode = hashedPassCode;
         Fliplet.Security.Storage.update();
       },
-      load_configuration: function(configuration) {
-        if (!configuration.has_reset) {
+      loadConfiguration: function(configuration) {
+        if (!configuration.hasReset) {
           $lock.find('.forgot-passcode').addClass('hidden');
         }
       }

@@ -21,7 +21,7 @@ var lockScreen = (function() {
   lockScreen.prototype = {
     constructor: lockScreen,
     setupUI: function() {
-      _this.attach_event_listeners();
+      _this.attachEventListeners();
     },
     createLinkProvider: function(selector, id) {
       var page = Fliplet.Widget.getPage();
@@ -53,8 +53,8 @@ var lockScreen = (function() {
       _this.linkPromises.push(linkActionProvider);
     },
     save: function(notifyComplete) {
-      _this.data.enable_touch_id = $('#enable_touch_id').is(':checked') ? 1 : null;
-      _this.data.has_reset = $('#available_reset').is(':checked') ? true : null;
+      _this.data.enableTouchId = $('#enable_touch_id').is(':checked') ? 1 : null;
+      _this.data.hasReset = $('#available_reset').is(':checked') ? true : null;
 
       if (notifyComplete) {
         Fliplet.Widget.all(_this.linkPromises).then(function() {
@@ -74,7 +74,7 @@ var lockScreen = (function() {
      * attach all event listener that the plugin configuration needs
      * @returns {*} lockscreen
      */
-    attach_event_listeners: function() {
+    attachEventListeners: function() {
       Fliplet.Widget.onSaveRequest(function() {
         _this.save(true);
       });
