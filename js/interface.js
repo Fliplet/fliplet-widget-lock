@@ -1,32 +1,29 @@
-var Lock_screen = (function () {
+var lockScreen = (function() {
   // Universal _this reference
   var _this;
-  const reset_action_id = 'reset_action';
-  const go_to_action_id = 'action';
+  const resetActionId = 'reset_action';
+  const goToActionId = 'action';
 
   // constructor
-  var Lock_screen = function () {
+  var lockScreen = function() {
     _this = this;
     this.id = null;
     this.linkPromises = [];
     this.setupUI();
     this.widgetId = Fliplet.Widget.getDefaultId();
     this.data = Fliplet.Widget.getData(this.widgetId) || {};
-    this.createLinkProvider('#to_go_link_action', go_to_action_id);
-    if(!_.isEmpty(this.data[reset_action_id])) {
-      _this.createLinkProvider('#reset_link_action', reset_action_id);
+    this.createLinkProvider('#to_go_link_action', goToActionId);
+    if (!_.isEmpty(this.data[resetActionId])) {
+      _this.createLinkProvider('#reset_link_action', resetActionId);
     }
-
   };
 
-  Lock_screen.prototype = {
-    constructor: Lock_screen,
+  lockScreen.prototype = {
+    constructor: lockScreen,
     setupUI: function() {
-
-      _this.attach_event_listeners();
-
+      _this.attachEventListeners();
     },
-    createLinkProvider: function(selector, id){
+    createLinkProvider: function(selector, id) {
       var page = Fliplet.Widget.getPage();
       var omitPages = page ? [page.id] : [];
 
@@ -40,14 +37,14 @@ var Lock_screen = (function () {
         // the interface gets repopulated with the same stuff
         data: this.data[id],
         // Events fired from the provider
-        onEvent: function (event, data) {
+        onEvent: function(event, data) {
           if (event === 'interface-validate') {
             Fliplet.Widget.toggleSaveButton(data.isValid === true);
           }
         }
       });
       // 3. Fired when the provider has finished
-      linkActionProvider.then(function (result) {
+      linkActionProvider.then(function(result) {
         _this.data[id] = result.data;
         return Promise.resolve();
       });
@@ -55,53 +52,49 @@ var Lock_screen = (function () {
       linkActionProvider.id = id;
       _this.linkPromises.push(linkActionProvider);
     },
-    save:function(notifyComplete) {
+    save: function(notifyComplete) {
+      _this.data.enableTouchId = $('#enable_touch_id').is(':checked') ? 1 : null;
+      _this.data.hasReset = $('#available_reset').is(':checked') ? true : null;
 
-      _this.data.enable_touch_id = $('#enable_touch_id').is(':checked') ? 1: null;
-      _this.data.has_reset = $("#available_reset").is(':checked') ? true: null;
-
-      if(notifyComplete) {
-        Fliplet.Widget.all(_this.linkPromises).then(function () {
+      if (notifyComplete) {
+        Fliplet.Widget.all(_this.linkPromises).then(function() {
           // when all providers have finished
-          Fliplet.Widget.save(_this.data).then(function () {
+          Fliplet.Widget.save(_this.data).then(function() {
             Fliplet.Widget.complete();
           });
         });
 
         // forward save request to all providers
-        _this.linkPromises.forEach(function (promise) {
+        _this.linkPromises.forEach(function(promise) {
           promise.forwardSaveRequest();
         });
       }
     },
     /**
      * attach all event listener that the plugin configuration needs
+     * @returns {*} lockscreen
      */
-    attach_event_listeners: function() {
-
-      Fliplet.Widget.onSaveRequest(function () {
+    attachEventListeners: function() {
+      Fliplet.Widget.onSaveRequest(function() {
         _this.save(true);
       });
 
       // Attach event listener for change on the reset section dropDown
-      $("input[name='has_reset']").on('change', function(){
-
-        if(this.id === 'available_reset') {
-          _this.createLinkProvider('#reset_link_action', reset_action_id);
+      $("input[name='has_reset']").on('change', function() {
+        if (this.id === 'available_reset') {
+          _this.createLinkProvider('#reset_link_action', resetActionId);
         } else {
-          _this.data[reset_action_id] = null;
+          _this.data[resetActionId] = null;
           $('#reset_link_action').html('');
-          _.remove(_this.linkPromises,{id:reset_action_id});
+          _.remove(_this.linkPromises, {id: resetActionId});
         }
       });
     }
   };
 
-  return Lock_screen;
+  return lockScreen;
 })();
 
 $(document).ready(function() {
-
-  window.lock = new Lock_screen();
-
+  window.lock = new lockScreen();
 });
