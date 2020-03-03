@@ -2,8 +2,9 @@ Fliplet.Widget.instance('passcode', function(data){
   var $lock = $(this);
   var widgetId = data.id;
   var widgetUuid = data.uuid;
+
   if (!widgetId) {
-      return;
+    return;
   }
 
   $.fn.state = function(newState) {
