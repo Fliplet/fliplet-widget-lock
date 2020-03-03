@@ -1,0 +1,7 @@
+{
+  "extends": "fliplet",
+  "globals": {
+    "Modernizr": true,
+    "sjcl": true
+  }
+}
