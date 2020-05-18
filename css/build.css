@@ -153,17 +153,6 @@ div[data-state="touchID"] button {
 	opacity: 0;
 }
 
-.use-touchid .touchid-icon {
-	width: 20px;
-	height: 20px;
-	line-height: 20px;
-	font-size: 18px;
-	text-align: center;
-	display: inline-block;
-	vertical-align: top;
-	color: #e9376b;
-}
-
 /* Fix component view when it is placed in the container */
 [data-widget-package="com.fliplet.lock"] {
   width: 100%;
