@@ -56,6 +56,14 @@ var lockScreen = (function() {
       _this.data.enableTouchId = $('#enable_touch_id').is(':checked') ? 1 : null;
       _this.data.hasReset = $('#available_reset').is(':checked') ? true : null;
 
+      if (_this.data.hasOwnProperty('enable_touch_id')) {
+        _this.data.enable_touch_id = null;
+      }
+
+      if (_this.data.hasOwnProperty('has_reset')) {
+        _this.data.has_reset = null;
+      }
+
       if (notifyComplete) {
         Fliplet.Widget.all(_this.linkPromises).then(function() {
           // when all providers have finished
@@ -86,7 +94,7 @@ var lockScreen = (function() {
         } else {
           _this.data[resetActionId] = null;
           $('#reset_link_action').html('');
-          _.remove(_this.linkPromises, {id: resetActionId});
+          _.remove(_this.linkPromises, { id: resetActionId });
         }
       });
     }
