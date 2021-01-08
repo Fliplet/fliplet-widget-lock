@@ -223,7 +223,7 @@ Fliplet.Widget.instance('lock', function(data){
         var that = _this;
 
         if (_this.passcodePV.hashedPassCode) {
-          if (_this.touchIdEnabled && Fliplet.Env.get('platform') !== 'web') {
+          if (_this.touchIdEnabled) {
             // GA Track event
             Fliplet.Analytics.trackEvent({
               category: 'lock_screen',
@@ -231,26 +231,26 @@ Fliplet.Widget.instance('lock', function(data){
               nonInteraction: true
             });
 
-            if (window.plugins.touchid) {
-              window.plugins.touchid.isAvailable(
-                function(type) {
-                  console.info('Biometric ID available', type);
-                  $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
-                  // GA Track event
-                  Fliplet.Analytics.trackEvent({
-                    category: 'lock_screen',
-                    action: 'touchid_available',
-                    nonInteraction: true
-                  });
-                  $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
-                  that.useTouchId();
-                },
-                function(message) {
-                  console.info('Biometric ID not available', message);
-                }
-              );
-            }
+            Fliplet.User.Biometrics.isAvailable().then(function (type) {
+              console.info('Biometric ID available', type);
+
+              $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
+
+              // GA Track event
+              Fliplet.Analytics.trackEvent({
+                category: 'lock_screen',
+                action: 'touchid_available',
+                nonInteraction: true
+              });
+
+              $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
+
+              that.useTouchId();
+            }, function onNotAvailable() {
+              console.info('Biometric ID not available', message);
+            });
           }
+
           _this.calculateElHeight($lock.find('.state[data-state=unlock]'));
           $lock.find('.state[data-state=unlock]').addClass('present');
           _this.focusOnElement($lock.find('.state[data-state=unlock]'));
