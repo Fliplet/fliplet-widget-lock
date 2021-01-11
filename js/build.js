@@ -1,4 +1,4 @@
-Fliplet.Widget.instance('lock', function(data){
+Fliplet.Widget.instance('lock', function(data) {
   var $lock = $(this);
   var widgetId = data.id;
   var widgetUuid = data.uuid;
@@ -10,6 +10,7 @@ Fliplet.Widget.instance('lock', function(data){
   $.fn.state = function(newState) {
     $(this).attr('data-state', newState);
     $(this).find('.state').hide().filter('[data-state="' + newState + '"]').show();
+
     return this;
   };
 
@@ -43,11 +44,13 @@ Fliplet.Widget.instance('lock', function(data){
 
           if (str.length >= 4) {
             _this.passcode = str;
+
             if ($lock.find('.state[data-state=setup]').hasClass('error')) {
               $lock.find('.state[data-state=setup]').removeClass('present error').addClass('past');
             } else {
               $lock.find('.state[data-state=setup]').removeClass('present').addClass('past');
             }
+
             _this.calculateElHeight($lock.find('.state[data-state=verify]'));
             $lock.find('.state[data-state=verify]').removeClass('future').addClass('present');
             _this.focusOnElement($lock.find('.state[data-state=verify]'));
@@ -62,8 +65,9 @@ Fliplet.Widget.instance('lock', function(data){
           if (str.length >= 4) {
             if (str === _this.passcode) {
               _this.savePasscodeOnPV(encryptPasscode(_this.passcode));
-              if (Fliplet.Env.get('platform') !== 'web' && _this.touchIdEnabled) {
-                Fliplet.User.Biometrics.isAvailable().then(function (type) {
+
+              if (_this.touchIdEnabled) {
+                Fliplet.User.Biometrics.isAvailable().then(function(type) {
                   console.info('Biometric ID available', type);
 
                   $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
@@ -79,11 +83,6 @@ Fliplet.Widget.instance('lock', function(data){
                   $lock.find('.state[data-state=noTouchID]').removeClass('future').addClass('present');
                   $(this).val('');
                 });
-              } else {
-                $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
-                _this.calculateElHeight($lock.find('.state[data-state=noTouchID]'));
-                $lock.find('.state[data-state=noTouchID]').removeClass('future').addClass('present');
-                $(this).val('');
               }
             } else {
               // GA Track event
@@ -98,6 +97,7 @@ Fliplet.Widget.instance('lock', function(data){
               $lock.find('.state[data-state=setup]').removeClass('past').addClass('present error');
               _this.focusOnElement($lock.find('.state[data-state=setup]'));
             }
+
             $(this).val('');
             $(this).blur();
           }
@@ -125,6 +125,7 @@ Fliplet.Widget.instance('lock', function(data){
               $lock.find('.state[data-state=unlock]').addClass('error');
               $lock.find('.state[data-state=unlock]').find('input').focus();
             }
+
             $(this).val('');
             $(this).blur();
           }
@@ -132,6 +133,7 @@ Fliplet.Widget.instance('lock', function(data){
 
         $lock.find('.continue-touchID, .continue').on('click', function() {
           redirectTo(goToActionId);
+
           return false;
         });
 
@@ -147,6 +149,7 @@ Fliplet.Widget.instance('lock', function(data){
               // go to the user configured screen and add a Query var to let the application know that the app needs to be reset;
               redirectTo(resetActionId);
               $lock.find('.form-control.input-lg').val('');
+
               return false;
             });
           }
@@ -178,6 +181,7 @@ Fliplet.Widget.instance('lock', function(data){
       },
       calculateElHeight: function(el) {
         var elementHeight = el.outerHeight();
+
         el.parents('.passcode-wrapper').css('height', elementHeight);
       },
       focusOnElement: function(el) {
@@ -189,6 +193,7 @@ Fliplet.Widget.instance('lock', function(data){
       },
       initializePV: function() {
         _this.pvName = 'passcode_' + _this.widgetUuid;
+
         var dataStructure = {
           hashedPassCode: false
         };
@@ -196,6 +201,7 @@ Fliplet.Widget.instance('lock', function(data){
         Fliplet.Security.Storage.create(_this.pvName, dataStructure).then(
           function(data) {
             _this.passcodePV = data;
+
             if (_this.configuration.hasCustomization) {
               var event = new CustomEvent(
                 'flLockOnLoadCustomization',
@@ -204,9 +210,12 @@ Fliplet.Widget.instance('lock', function(data){
                   cancelable: true
                 }
               );
+
               document.dispatchEvent(event);
+
               return;
             }
+
             _this.initializeLockScreenUI();
           }
         );
@@ -219,7 +228,7 @@ Fliplet.Widget.instance('lock', function(data){
           $lock.find('.state[data-state=unlock]').addClass('present');
           _this.focusOnElement($lock.find('.state[data-state=unlock]'));
 
-          if (Fliplet.Env.get('platform') !== 'web' && _this.touchIdEnabled) {
+          if (_this.touchIdEnabled) {
             // GA Track event
             Fliplet.Analytics.trackEvent({
               category: 'lock_screen',
@@ -227,7 +236,7 @@ Fliplet.Widget.instance('lock', function(data){
               nonInteraction: true
             });
 
-            Fliplet.User.Biometrics.isAvailable().then(function (type) {
+            Fliplet.User.Biometrics.isAvailable().then(function(type) {
               console.info('Biometric ID available', type);
 
               $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
@@ -242,7 +251,7 @@ Fliplet.Widget.instance('lock', function(data){
               $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
 
               that.useTouchId();
-            }, function onNotAvailable() {
+            }, function onNotAvailable(message) {
               console.info('Biometric ID not available', message);
             });
           }
@@ -256,7 +265,7 @@ Fliplet.Widget.instance('lock', function(data){
         return Fliplet.User.Biometrics.verify({
           title: 'Use your fingerprint to unlock your app',
           description: 'Enter Passcode'
-        }).then(function () {
+        }).then(function() {
           // GA Track event
           Fliplet.Analytics.trackEvent({
             category: 'lock_screen',
@@ -297,6 +306,7 @@ Fliplet.Widget.instance('lock', function(data){
      */
     function encryptPasscode(passcode) {
       var bitArray = sjcl.hash.sha256.hash(passcode);
+
       return sjcl.codec.hex.fromBits(bitArray);
     }
 
@@ -327,12 +337,15 @@ Fliplet.Widget.instance('lock', function(data){
       if (event.detail.event === 'reload-widget-instance') {
         setTimeout(function() {
           var elementHeight;
+
           if (_this.passcodePV.hashedPassCode) {
             elementHeight = $('.state[data-state=unlock]').outerHeight();
             $('.state[data-state=unlock]').addClass('present');
             $('.state[data-state=unlock]').parents('.passcode-wrapper').css('height', elementHeight);
+
             return;
           }
+
           elementHeight = $('.state[data-state=setup]').outerHeight();
           $('.state[data-state=setup]').addClass('present');
           $('.state[data-state=setup]').parents('.passcode-wrapper').css('height', elementHeight);
@@ -343,18 +356,7 @@ Fliplet.Widget.instance('lock', function(data){
     return lockScreen;
   })();
 
-  if (Fliplet.Env.get('platform') === 'web') {
-    initLockScreen();
-    $('.passcode-wrapper').parent().on('fliplet_page_reloaded', initLockScreen);
-  } else {
-    Fliplet().then(function() {
-      initLockScreen();
-    });
-  }
-
-  function initLockScreen() {
-    data.hasCustomization = typeof lockScreenCustomization !== 'undefined' ? lockScreenCustomization : false;
-
+  Fliplet().then(function() {
     new lockScreen(data);
-  }
+  });
 });
