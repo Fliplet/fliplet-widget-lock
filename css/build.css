@@ -147,6 +147,7 @@ div[data-state="touchID"] button {
 	display: inline-block;
 	margin: 10px 0 0;
 	opacity: 1;
+	cursor: pointer;
 }
 
 .use-touchid.notShow {
