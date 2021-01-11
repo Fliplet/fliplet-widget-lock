@@ -15,8 +15,8 @@ Fliplet.Widget.instance('lock', function(data){
 
   var lockScreen = (function() {
     var _this = this;
-    const resetActionId = 'reset_action';
-    const goToActionId = 'action';
+    var resetActionId = 'reset_action';
+    var goToActionId = 'action';
 
     var lockScreen = function(configuration) {
       _this = this;
@@ -25,12 +25,12 @@ Fliplet.Widget.instance('lock', function(data){
       this.configuration = (configuration || {});
       this.touchIdEnabled = this.configuration.enableTouchId || this.configuration.enable_touch_id;
       this.passcode = '';
+
       Fliplet.Security.Storage.init().then(function() {
         _this.initializePV();
         _this.attachEventListeners();
         _this.loadConfiguration(configuration);
       });
-
     };
 
     lockScreen.prototype = {
@@ -63,30 +63,22 @@ Fliplet.Widget.instance('lock', function(data){
             if (str === _this.passcode) {
               _this.savePasscodeOnPV(encryptPasscode(_this.passcode));
               if (Fliplet.Env.get('platform') !== 'web' && _this.touchIdEnabled) {
-                if (window.plugins.touchid) {
-                  window.plugins.touchid.isAvailable(
-                    function(type) {
-                      console.info('Biometric ID available', type);
-                      $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
-                      $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
-                      _this.calculateElHeight($lock.find('.state[data-state=touchID]'));
-                      $lock.find('.state[data-state=touchID]').removeClass('future').addClass('present');
-                      $(this).val('');
-                    },
-                    function(message) {
-                      console.info('Biometric ID not available', message);
-                      $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
-                      _this.calculateElHeight($lock.find('.state[data-state=noTouchID]'));
-                      $lock.find('.state[data-state=noTouchID]').removeClass('future').addClass('present');
-                      $(this).val('');
-                    }
-                  );
-                } else {
+                Fliplet.User.Biometrics.isAvailable().then(function (type) {
+                  console.info('Biometric ID available', type);
+
+                  $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
+                  $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
+                  _this.calculateElHeight($lock.find('.state[data-state=touchID]'));
+                  $lock.find('.state[data-state=touchID]').removeClass('future').addClass('present');
+                  $(this).val('');
+                }, function onNotAvailable(message) {
+                  console.info('Biometric ID not available', message);
+
                   $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
                   _this.calculateElHeight($lock.find('.state[data-state=noTouchID]'));
                   $lock.find('.state[data-state=noTouchID]').removeClass('future').addClass('present');
                   $(this).val('');
-                }
+                });
               } else {
                 $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
                 _this.calculateElHeight($lock.find('.state[data-state=noTouchID]'));
@@ -223,7 +215,11 @@ Fliplet.Widget.instance('lock', function(data){
         var that = _this;
 
         if (_this.passcodePV.hashedPassCode) {
-          if (_this.touchIdEnabled) {
+          _this.calculateElHeight($lock.find('.state[data-state=unlock]'));
+          $lock.find('.state[data-state=unlock]').addClass('present');
+          _this.focusOnElement($lock.find('.state[data-state=unlock]'));
+
+          if (Fliplet.Env.get('platform') !== 'web' && _this.touchIdEnabled) {
             // GA Track event
             Fliplet.Analytics.trackEvent({
               category: 'lock_screen',
@@ -250,10 +246,6 @@ Fliplet.Widget.instance('lock', function(data){
               console.info('Biometric ID not available', message);
             });
           }
-
-          _this.calculateElHeight($lock.find('.state[data-state=unlock]'));
-          $lock.find('.state[data-state=unlock]').addClass('present');
-          _this.focusOnElement($lock.find('.state[data-state=unlock]'));
         } else {
           _this.calculateElHeight($lock.find('.state[data-state=setup]'));
           $lock.find('.state[data-state=setup]').addClass('present');
@@ -261,27 +253,25 @@ Fliplet.Widget.instance('lock', function(data){
         }
       },
       useTouchId: function() {
-        window.plugins.touchid.verifyFingerprintWithCustomPasswordFallbackAndEnterPasswordLabel(
-          'Use your fingerprint to unlock your app',
-          'Enter Passcode',
-          function() {
-            // GA Track event
-            Fliplet.Analytics.trackEvent({
-              category: 'lock_screen',
-              action: 'touchid_verified'
-            });
+        return Fliplet.User.Biometrics.verify({
+          title: 'Use your fingerprint to unlock your app',
+          description: 'Enter Passcode'
+        }).then(function () {
+          // GA Track event
+          Fliplet.Analytics.trackEvent({
+            category: 'lock_screen',
+            action: 'touchid_verified'
+          });
 
-            redirectTo(goToActionId);
-          },
-          function() {
-            // GA Track event
-            Fliplet.Analytics.trackEvent({
-              category: 'lock_screen',
-              action: 'touchid_cancelled',
-              nonInteraction: true
-            });
-          }
-        );
+          redirectTo(goToActionId);
+        }, function onError() {
+          // GA Track event
+          Fliplet.Analytics.trackEvent({
+            category: 'lock_screen',
+            action: 'touchid_cancelled',
+            nonInteraction: true
+          });
+        });
       },
       savePasscodeOnPV: function(hashedPassCode) {
         // GA Track event
@@ -301,10 +291,10 @@ Fliplet.Widget.instance('lock', function(data){
     };
 
     /**
-         * use sjcl to hash the passode
-         * @param {*} passcode to be hashed
-         * @returns {*} hashed passcode
-         */
+     * use sjcl to hash the passode
+     * @param {*} passcode to be hashed
+     * @returns {*} hashed passcode
+     */
     function encryptPasscode(passcode) {
       var bitArray = sjcl.hash.sha256.hash(passcode);
       return sjcl.codec.hex.fromBits(bitArray);
