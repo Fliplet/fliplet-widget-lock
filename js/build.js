@@ -14,6 +14,31 @@ Fliplet.Widget.instance('lock', function(data) {
     return this;
   };
 
+  /**
+   * Returns a description of the given biometric type
+   * @param {String} type the value for the biometric type available as given by the JS API
+   * @return {String} description
+   */
+  function getBiometricsDescription(type) {
+    switch (type) {
+      case 'face':
+        if (Modernizr.ios) {
+          return 'Face ID';
+        }
+
+        return 'Face Unlock';
+      case 'finger':
+      case 'touch':
+        if (Modernizr.ios) {
+          return 'Touch ID';
+        }
+
+        return 'Fingerprint';
+      default:
+        return type.charAt(0).toUpperCase() + type.slice(1);
+    }
+  }
+
   var lockScreen = (function() {
     var _this = this;
     var resetActionId = 'reset_action';
@@ -68,16 +93,12 @@ Fliplet.Widget.instance('lock', function(data) {
 
               if (_this.touchIdEnabled) {
                 Fliplet.User.Biometrics.isAvailable().then(function(type) {
-                  console.info('Biometric ID available', type);
-
-                  $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
+                  $lock.find('.bio-id-type').text(getBiometricsDescription(type));
                   $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
                   _this.calculateElHeight($lock.find('.state[data-state=touchID]'));
                   $lock.find('.state[data-state=touchID]').removeClass('future').addClass('present');
                   $(this).val('');
-                }, function onNotAvailable(message) {
-                  console.info('Biometric ID not available', message);
-
+                }, function onNotAvailable() {
                   $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
                   _this.calculateElHeight($lock.find('.state[data-state=noTouchID]'));
                   $lock.find('.state[data-state=noTouchID]').removeClass('future').addClass('present');
@@ -237,9 +258,7 @@ Fliplet.Widget.instance('lock', function(data) {
             });
 
             Fliplet.User.Biometrics.isAvailable().then(function(type) {
-              console.info('Biometric ID available', type);
-
-              $lock.find('.bio-id-type').text(type.charAt(0).toUpperCase() + type.slice(1));
+              $lock.find('.bio-id-type').text(getBiometricsDescription(type));
 
               // GA Track event
               Fliplet.Analytics.trackEvent({
@@ -251,8 +270,8 @@ Fliplet.Widget.instance('lock', function(data) {
               $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
 
               that.useTouchId();
-            }, function onNotAvailable(message) {
-              console.info('Biometric ID not available', message);
+            }, function onNotAvailable() {
+              // Biometrics not available
             });
           }
         } else {
