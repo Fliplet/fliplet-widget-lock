@@ -16,10 +16,11 @@ Fliplet.Widget.instance('lock', function(data) {
 
   /**
    * Returns a description of the given biometric type
-   * @param {String} type the value for the biometric type available as given by the JS API
+   * @param {String} type - the value for the biometric type available as given by the JS API
+   * @param {Boolean} usePossessive - whether the pronoun should be added is necessary to form a better sentence (e.g. "your fingerprint" as opposite to "Fingerprint")
    * @return {String} description
    */
-  function getBiometricsDescription(type) {
+  function getBiometricsDescription(type, usePossessive) {
     switch (type) {
       case 'face':
         if (Modernizr.ios) {
@@ -31,6 +32,10 @@ Fliplet.Widget.instance('lock', function(data) {
       case 'touch':
         if (Modernizr.ios) {
           return 'Touch ID';
+        }
+
+        if (usePossessive) {
+          return 'your fingerprint';
         }
 
         return 'Fingerprint';
@@ -89,7 +94,7 @@ Fliplet.Widget.instance('lock', function(data) {
 
           if (str.length >= 4) {
             if (str === _this.passcode) {
-              _this.savePasscodeOnPV(encryptPasscode(_this.passcode));
+              _this.savePasscodeToStorage(encryptPasscode(_this.passcode));
 
               if (_this.touchIdEnabled) {
                 Fliplet.User.Biometrics.isAvailable().then(function(type) {
@@ -197,7 +202,10 @@ Fliplet.Widget.instance('lock', function(data) {
             category: 'lock_screen',
             action: 'touchid_manual_activated'
           });
-          _this.useTouchId();
+
+          Fliplet.User.Biometrics.isAvailable().then(function(type) {
+            _this.useBiometrics(type);
+          }
         });
       },
       calculateElHeight: function(el) {
@@ -269,7 +277,7 @@ Fliplet.Widget.instance('lock', function(data) {
 
               $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
 
-              that.useTouchId();
+              that.useBiometrics(type);
             }, function onNotAvailable() {
               // Biometrics not available
             });
@@ -280,11 +288,20 @@ Fliplet.Widget.instance('lock', function(data) {
           _this.focusOnElement($lock.find('.state[data-state=setup]'));
         }
       },
-      useTouchId: function() {
-        return Fliplet.User.Biometrics.verify({
-          title: 'Use your fingerprint to unlock your app',
-          description: 'Enter Passcode'
-        }).then(function() {
+      /**
+       * Ask the user to authenticate via the Biometrics
+       * @param {String} type
+       */
+      useBiometrics: function(type) {
+        var options = {
+          title: 'Use ' + getBiometricsDescription(type, true) + ' to unlock your app'
+        };
+
+        if (Modernizr.ios) {
+          options.description = 'Enter Passcode';
+        }
+
+        return Fliplet.User.Biometrics.verify(options).then(function() {
           // GA Track event
           Fliplet.Analytics.trackEvent({
             category: 'lock_screen',
@@ -301,7 +318,7 @@ Fliplet.Widget.instance('lock', function(data) {
           });
         });
       },
-      savePasscodeOnPV: function(hashedPassCode) {
+      savePasscodeToStorage: function(hashedPassCode) {
         // GA Track event
         Fliplet.Analytics.trackEvent({
           category: 'lock_screen',
