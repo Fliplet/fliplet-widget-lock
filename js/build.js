@@ -205,7 +205,7 @@ Fliplet.Widget.instance('lock', function(data) {
 
           Fliplet.User.Biometrics.isAvailable().then(function(type) {
             _this.useBiometrics(type);
-          }
+          });
         });
       },
       calculateElHeight: function(el) {
