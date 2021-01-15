@@ -17,10 +17,9 @@ Fliplet.Widget.instance('lock', function(data) {
   /**
    * Returns a description of the given biometric type
    * @param {String} type - the value for the biometric type available as given by the JS API
-   * @param {Boolean} usePossessive - whether the pronoun should be added is necessary to form a better sentence (e.g. "your fingerprint" as opposite to "Fingerprint")
    * @return {String} description
    */
-  function getBiometricsDescription(type, usePossessive) {
+  function getBiometricsDescription(type) {
     switch (type) {
       case 'face':
         if (Modernizr.ios) {
@@ -32,10 +31,6 @@ Fliplet.Widget.instance('lock', function(data) {
       case 'touch':
         if (Modernizr.ios) {
           return 'Touch ID';
-        }
-
-        if (usePossessive) {
-          return 'your fingerprint';
         }
 
         return 'Fingerprint';
@@ -203,8 +198,8 @@ Fliplet.Widget.instance('lock', function(data) {
             action: 'touchid_manual_activated'
           });
 
-          Fliplet.User.Biometrics.isAvailable().then(function(type) {
-            _this.useBiometrics(type);
+          Fliplet.User.Biometrics.isAvailable().then(function() {
+            _this.useBiometrics();
           });
         });
       },
@@ -277,7 +272,7 @@ Fliplet.Widget.instance('lock', function(data) {
 
               $lock.find('.state[data-state=unlock]').find('.use-touchid').removeClass('notShow');
 
-              that.useBiometrics(type);
+              that.useBiometrics();
             }, function onNotAvailable() {
               // Biometrics not available
             });
@@ -290,11 +285,11 @@ Fliplet.Widget.instance('lock', function(data) {
       },
       /**
        * Ask the user to authenticate via the Biometrics
-       * @param {String} type
+       * @returns {Promise} Verification promise
        */
-      useBiometrics: function(type) {
+      useBiometrics: function() {
         var options = {
-          title: 'Use ' + getBiometricsDescription(type, true) + ' to unlock your app'
+          title: 'Unlock your app'
         };
 
         if (Modernizr.ios) {
