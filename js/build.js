@@ -17,7 +17,6 @@ Fliplet.Widget.instance('lock', function(data) {
   /**
    * Returns a description of the given biometric type
    * @param {String} type - the value for the biometric type available as given by the JS API
-   * @param {Boolean} usePossessive - whether the pronoun should be added is necessary to form a better sentence (e.g. "your fingerprint" as opposite to "Fingerprint")
    * @return {String} description
    */
   function getBiometricsDescription(type) {
