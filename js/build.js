@@ -104,6 +104,11 @@ Fliplet.Widget.instance('lock', function(data) {
                   $lock.find('.state[data-state=noTouchID]').removeClass('future').addClass('present');
                   $(this).val('');
                 });
+              } else {
+                $lock.find('.state[data-state=verify]').removeClass('present').addClass('past');
+                _this.calculateElHeight($lock.find('.state[data-state=noTouchID]'));
+                $lock.find('.state[data-state=noTouchID]').removeClass('future').addClass('present');
+                $(this).val('');
               }
             } else {
               // GA Track event
