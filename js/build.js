@@ -172,9 +172,12 @@ Fliplet.Widget.instance('lock', function(data) {
             });
 
             Fliplet.Security.Storage.reset(_this.pvName).then(function() {
-              // go to the user configured screen and add a Query var to let the application know that the app needs to be reset;
-              redirectTo(resetActionId);
-              $lock.find('.form-control.input-lg').val('');
+              // Users should be logged out before being redirected to the configured screen.
+              Fliplet.Session.logout().then(function onSessionDestroyed() {
+                // go to the user configured screen and add a Query var to let the application know that the app needs to be reset;
+                redirectTo(resetActionId);
+                $lock.find('.form-control.input-lg').val('');
+              });
 
               return false;
             });

@@ -27,7 +27,8 @@
     "dependencies": [
       "fliplet-core",
       "bootstrap-css",
-      "fliplet-security"
+      "fliplet-security",
+      "fliplet-session"
     ],
     "assets": [
       "css/build.css",
