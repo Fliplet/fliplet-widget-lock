@@ -3,6 +3,8 @@ Fliplet.Widget.instance('lock', function(data) {
   var widgetId = data.id;
   var widgetUuid = data.uuid;
 
+  $(this).translate();
+
   if (!widgetId) {
     return;
   }
@@ -297,11 +299,11 @@ Fliplet.Widget.instance('lock', function(data) {
        */
       useBiometrics: function() {
         var options = {
-          title: 'Unlock your app'
+          title: T('widgets.lock.touchId.authenticate.title')
         };
 
         if (Modernizr.ios) {
-          options.description = 'Enter Passcode';
+          options.description = T('widgets.lock.touchId.authenticate.description');
         }
 
         return Fliplet.User.Biometrics.verify(options).then(function() {
