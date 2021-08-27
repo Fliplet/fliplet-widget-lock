@@ -1,42 +1,42 @@
 <div class="passcode-wrapper" data-lock-id="{{id}}" data-lock-uuid="{{uuid}}">
   <div class="state" data-state="setup">
-    <h1>Set up a Passcode</h1>
-    <input type="tel" class="passcode-field num-setup" placeholder="Tap to enter passcode" />
-    <p>To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
-    <p class="text-danger">Passcodes did not match. Please try again.</p>
+    <h1 data-translate="widgets.lock.dataSource.setup.title">Set up a Passcode</h1>
+    <input type="tel" class="passcode-field num-setup" data-translate="[placeholder]widgets.lock.dataSource.setup.passwordPlaceholder" placeholder="Tap to enter passcode" />
+    <p data-translate="widgets.lock.dataSource.setup.instruction">To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
+    <p class="text-danger" data-translate="widgets.lock.dataSource.setup.mismatch">Passcodes did not match. Please try again.</p>
   </div>
   <div class="state future" data-state="verify">
-    <h1>Verify your Passcode</h1>
+    <h1 data-translate="widgets.lock.dataSource.verify.title">verify</h1>
     <div class="verify-field-wrapper">
-      <input type="tel" class="passcode-field num-verify" placeholder="Tap to re-enter passcode" />
+      <input type="tel" class="passcode-field num-verify" data-translate="[placeholder]widgets.lock.dataSource.verify.passwordPlaceholder" placeholder="Tap to re-enter passcode" />
       <div class="back-setup"><span class="fa fa-chevron-left"></span></div>
     </div>
-    <p>To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
+    <p data-translate="widgets.lock.dataSource.verify.instruction">To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
   </div>
   <div class="state future" data-state="touchID">
-    <h1>Complete</h1>
-    <p>Your passcode is successfully set up.</p>
-    <p>You can also use <span class="bio-id-type">Face ID</span> to unlock your app in the future.</p>
-    <button class="btn btn-primary continue-touchID">Continue</button>
+    <h1 data-translate="widgets.lock.dataSource.touchID.title">Complete</h1>
+    <p data-translate="widgets.lock.dataSource.touchID.success">Your passcode is successfully set up.</p>
+    <p data-translate="widgets.lock.dataSource.touchID.instruction">You can also use <span class="bio-id-type">Face ID</span> to unlock your app in the future.</p>
+    <button class="btn btn-primary continue-touchID" data-translate="widgets.lock.dataSource.touchID.action">Continue</button>
   </div>
   <div class="state future" data-state="noTouchID">
-    <h1>Complete</h1>
-    <p>Your passcode is successfully set up.</p>
-    <button class="btn btn-primary continue">Continue</button>
+    <h1 data-translate="widgets.lock.dataSource.noTouchID.title">Complete</h1>
+    <p data-translate="widgets.lock.dataSource.noTouchID.success">Your passcode is successfully set up.</p>
+    <button class="btn btn-primary continue" data-translate="widgets.lock.dataSource.noTouchID.action">Continue</button>
   </div>
   <div class="state" data-state="unlock">
-    <h1>Unlock your app</h1>
-    <input type="tel" class="passcode-field num-unlock" placeholder="Tap to enter passcode" />
-    <p>Enter your passcode to unlock your app.</p>
-    <p><a href="#" class="btn btn-link forgot-passcode">Forgot your passcode?</a></p>
-    <p class="text-danger">Incorrect passcode. Please try again.</p>
-    <div class="use-touchid notShow">
+    <h1 data-translate="widgets.lock.dataSource.unlock.title">Unlock your app</h1>
+    <input type="tel" class="passcode-field num-unlock" data-translate="[placeholder]widgets.lock.dataSource.unlock.passwordPlaceholder" placeholder="Tap to enter passcode" />
+    <p data-translate="widgets.lock.dataSource.unlock.instruction">Enter your passcode to unlock your app.</p>
+    <p><a href="#" class="btn btn-link forgot-passcode" data-translate="widgets.lock.dataSource.unlock.forgotPassword">Forgot your passcode?</a></p>
+    <p class="text-danger" data-translate="widgets.lock.dataSource.unlock.mismatch">Incorrect passcode. Please try again.</p>
+    <div class="use-touchid notShow" data-translate="widgets.lock.dataSource.unlock.message">
       Use <span class="bio-id-type">Face ID</span>
     </div>
   </div>
 
   <div class="text-center hidden">
-    <p><strong>Something went wrong.</strong></p>
-    <p>The Lock screen needs to be configured.</p>
+    <p><strong data-translate="widgets.lock.dataSource.error.title">Something went wrong.</strong></p>
+    <p data-translate="widgets.lock.dataSource.error.instruction">The Lock screen needs to be configured.</p>
   </div>
 </div>

@@ -1,0 +1,46 @@
+{
+    "widgets": {
+        "lock": {
+            "dataSource": {
+                "biometricsAuth": {
+                    "title": "Unlock your app",
+                    "description": "Enter Passcode"
+                },
+                "setup": {
+                    "title": "Set up a Passcode",
+                    "passwordPlaceholder": "Tap to enter passcode",
+                    "instruction": "To protect your data and unlock your app you will need to set up a 4-digit passcode",
+                    "mismatch": "Passcodes did not match. Please try again."
+                },
+                "verify": {
+                    "title": "Verify your Passcode",
+                    "passwordPlaceholder": "Tap to re-enter passcode",
+                    "instruction": "To protect your data and unlock your app you will need to set up a 4-digit passcode"
+                },
+                "touchID": {
+                    "title": "Complete",
+                    "success": "Your passcode is successfully set up.",
+                    "instruction": "You can also use <span class=\"bio-id-type\">Face ID</span> to unlock your app in the future.",
+                    "action": "Continue"
+                },
+                "noTouchID": {
+                    "title": "Complete",
+                    "success": "Your passcode is successfully set up.",
+                    "action": "Continue"
+                },
+                "unlock": {
+                    "title": "Unlock your app",
+                    "passwordPlaceholder": "Tap to enter passcode",
+                    "instruction": "Enter your passcode to unlock your app.",
+                    "forgotPassword": "Forgot your passcode?",
+                    "mismatch": "Incorrect passcode. Please try again.",
+                    "message": "Use <span class=\"bio-id-type\">Face ID</span>"
+                },
+                "error": {
+                    "title": "Something went wrong.",
+                    "instruction": "The Lock screen needs to be configured."
+                }
+            }
+        }
+    }
+}
