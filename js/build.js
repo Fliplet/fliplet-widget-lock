@@ -4,8 +4,6 @@ Fliplet.Widget.instance('lock', function(data) {
   var widgetUuid = data.uuid;
 
   $(this).translate();
-  
-  console.log(T('widgets.login.dataSource.errors.sessionNotFound'));
 
   if (!widgetId) {
     return;
