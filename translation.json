@@ -1,7 +1,6 @@
 {
     "widgets": {
         "lock": {
-            "dataSource": {
                 "biometricsAuth": {
                     "title": "Unlock your app",
                     "description": "Enter Passcode"
