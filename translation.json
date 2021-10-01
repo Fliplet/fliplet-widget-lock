@@ -39,7 +39,7 @@
         "mismatch": "Incorrect passcode. Please try again.",
         "message": "Use <span class=\"bio-id-type\">Face ID</span>"
       },
-      "error": {
+      "errors": {
         "title": "Something went wrong.",
         "instruction": "The Lock screen needs to be configured."
       }
