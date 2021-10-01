@@ -299,11 +299,11 @@ Fliplet.Widget.instance('lock', function(data) {
        */
       useBiometrics: function() {
         var options = {
-          title: T('widgets.lock.biometricsAuth.title')
+          title: T('widgets.lock.touchId.authenticate.title')
         };
 
         if (Modernizr.ios) {
-          options.description = T('widgets.lock.biometricsAuth.description');
+          options.description = T('widgets.lock.touchId.authenticate.description');
         }
 
         return Fliplet.User.Biometrics.verify(options).then(function() {

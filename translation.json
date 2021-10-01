@@ -1,10 +1,6 @@
 {
   "widgets": {
     "lock": {
-      "biometricsAuth": {
-        "title": "Unlock your app",
-        "description": "Enter Passcode"
-      },
       "setup": {
         "title": "Set up a Passcode",
         "passwordPlaceholder": "Tap to enter passcode",
@@ -21,6 +17,10 @@
         "instruction": "You can also use <span class=\"bio-id-type\">Face ID</span> to unlock your app in the future.",
         "actions": {
           "continue": "Continue"
+        },
+        "authenticate": {
+          "title": "Unlock your app",
+          "description": "Enter Passcode"
         }
       },
       "noTouchId": {
