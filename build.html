@@ -3,7 +3,7 @@
     <h1 data-translate="widgets.lock.setup.title">Set up a Passcode</h1>
     <input type="tel" class="passcode-field num-setup" data-translate="[placeholder]widgets.lock.setup.passwordPlaceholder" placeholder="Tap to enter passcode" />
     <p data-translate="widgets.lock.setup.instruction">To protect your data and unlock your app you will need to set up a 4-digit passcode</p>
-    <p class="text-danger" data-translate="widgets.lock.setup.mismatch">Passcodes did not match. Please try again.</p>
+    <p class="text-danger" data-translate="widgets.lock.errors.passcodesMismatch">Passcodes did not match. Please try again.</p>
   </div>
   <div class="state future" data-state="verify">
     <h1 data-translate="widgets.lock.verify.title">Verify your Passcode</h1>
@@ -29,14 +29,14 @@
     <input type="tel" class="passcode-field num-unlock" data-translate="[placeholder]widgets.lock.unlock.passwordPlaceholder" placeholder="Tap to enter passcode" />
     <p data-translate="widgets.lock.unlock.instruction">Enter your passcode to unlock your app.</p>
     <p><a href="#" class="btn btn-link forgot-passcode" data-translate="widgets.lock.unlock.forgotPassword">Forgot your passcode?</a></p>
-    <p class="text-danger" data-translate="widgets.lock.unlock.mismatch">Incorrect passcode. Please try again.</p>
+    <p class="text-danger" data-translate="widgets.lock.errors.incorrectPasscode">Incorrect passcode. Please try again.</p>
     <div class="use-touchid notShow" data-translate="[html]widgets.lock.unlock.message">
       Use <span class="bio-id-type">Face ID</span>
     </div>
   </div>
 
   <div class="text-center hidden">
-    <p><strong data-translate="widgets.lock.errors.title">Something went wrong.</strong></p>
-    <p data-translate="widgets.lock.errors.instruction">The Lock screen needs to be configured.</p>
+    <p><strong data-translate="widgets.lock.errors.configError.title">Something went wrong.</strong></p>
+    <p data-translate="widgets.lock.errors.configError.instruction">The Lock screen needs to be configured.</p>
   </div>
 </div>
