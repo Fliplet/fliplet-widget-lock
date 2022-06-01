@@ -3,8 +3,6 @@ Fliplet.Widget.instance('lock', function(data) {
   var widgetId = data.id;
   var widgetUuid = data.uuid;
 
-  $(this).translate();
-
   if (!widgetId) {
     return;
   }
@@ -398,6 +396,8 @@ Fliplet.Widget.instance('lock', function(data) {
   })();
 
   Fliplet().then(function() {
+    $lock.translate();
+
     new lockScreen(data);
   });
 });
