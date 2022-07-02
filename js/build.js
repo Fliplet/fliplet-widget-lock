@@ -297,11 +297,11 @@ Fliplet.Widget.instance('lock', function(data) {
        */
       useBiometrics: function() {
         var options = {
-          title: 'Unlock your app'
+          title: T('widgets.lock.touchId.authenticate.title')
         };
 
         if (Modernizr.ios) {
-          options.description = 'Enter Passcode';
+          options.description = T('widgets.lock.touchId.authenticate.description');
         }
 
         return Fliplet.User.Biometrics.verify(options).then(function() {
@@ -396,6 +396,8 @@ Fliplet.Widget.instance('lock', function(data) {
   })();
 
   Fliplet().then(function() {
+    $lock.translate();
+
     new lockScreen(data);
   });
 });
