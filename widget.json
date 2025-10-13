@@ -12,6 +12,7 @@
   "interface": {
     "dependencies": [
       "fliplet-core",
+      "fliplet-utils",
       "fliplet-studio-ui",
       "jquery-ui",
       "lodash",
