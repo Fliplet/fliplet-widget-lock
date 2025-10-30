@@ -15,7 +15,6 @@
       "fliplet-utils",
       "fliplet-studio-ui",
       "jquery-ui",
-      "lodash",
       "handlebars",
       "bootstrap"
     ],
