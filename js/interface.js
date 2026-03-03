@@ -13,7 +13,7 @@ var lockScreen = (function() {
     this.widgetId = Fliplet.Widget.getDefaultId();
     this.data = Fliplet.Widget.getData(this.widgetId) || {};
     this.createLinkProvider('#to_go_link_action', goToActionId);
-    if (!_.isEmpty(this.data[resetActionId])) {
+    if (!Fliplet.Utils.isEmpty(this.data[resetActionId])) {
       _this.createLinkProvider('#reset_link_action', resetActionId);
     }
   };
@@ -94,7 +94,7 @@ var lockScreen = (function() {
         } else {
           _this.data[resetActionId] = null;
           $('#reset_link_action').html('');
-          _.remove(_this.linkPromises, { id: resetActionId });
+          Fliplet.Utils.remove(_this.linkPromises, { id: resetActionId });
         }
       });
     }
